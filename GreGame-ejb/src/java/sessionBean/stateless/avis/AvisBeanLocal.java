@@ -14,9 +14,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface AvisBeanLocal {
- public void saveAvis(Avis avis);
- public void deleteAvis(Avis avis);
+ public void ajouterAvis(Avis avis);
+ public void supprimerAvis(Avis avis);
  public Avis getAvis(int avisID);
  public List<Avis>  getAllAvis();
-  public void updateAvis(Avis avis);
+  public void modifierAvis(Avis avis);
 }

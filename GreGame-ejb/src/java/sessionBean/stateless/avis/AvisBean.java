@@ -19,11 +19,11 @@ public class AvisBean implements AvisBeanLocal {
     @PersistenceContext(unitName = "GreGame_Persistence")
     private EntityManager em;
 
-    public void saveAvis(Avis avis) {
+    public void ajouterAvis(Avis avis) {
         em.persist(avis);
     }
     
-    public void deleteAvis(Avis avis) {
+    public void supprimerAvis(Avis avis) {
         em.remove(avis);
     }    
 
@@ -32,7 +32,7 @@ public class AvisBean implements AvisBeanLocal {
         avis=em.find(Avis.class,avisID);
         return avis;
     }    
-        public void updateAvis(Avis avis) {
+        public void modifierAvis(Avis avis) {
         em.merge(avis);
     }   
     
