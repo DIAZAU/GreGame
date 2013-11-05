@@ -14,9 +14,13 @@ import javax.validation.constraints.NotNull;
 
 
 
+/**
+ *
+ * @author FALL
+ */
 @Entity
 @NamedQueries(
-        @NamedQuery(name="Avis.getAll", query="select a from avis a"))
+        @NamedQuery(name="Avis.findAll", query="select a from avis a"))
 public class Avis implements Serializable {
 	
     private int idAvis;
@@ -24,6 +28,9 @@ public class Avis implements Serializable {
     private int noteAvis;
     private Client client;
     private Produit produit;
+
+    public Avis() {
+    }
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)

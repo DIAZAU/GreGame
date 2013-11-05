@@ -14,12 +14,10 @@ import javax.ejb.Local;
  */
 @Local
 public interface AvisBeanLocal {
-    
-    public void saveAvis(Avis avis);
-    public void deleteAvis(Avis avis);
-    public Avis getAvis(int avisID);
-    public List<Avis>  getAllAvis();
-    public void updateAvis(Avis avis);
-    
+ public void createAvis(Avis avis);
+ public void deleteAvis(int idAvis);
+ public Avis searchAvis(int idAvis);
+ public List<Avis>  searchAllAvis();
+ public void updateAvis(int idAvis, String massage);
 }
 
