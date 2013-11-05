@@ -19,19 +19,23 @@ public class AvisBean implements AvisBeanLocal {
     @PersistenceContext(unitName = "GreGame_Persistence")
     private EntityManager em;
 
+    @Override
     public void saveAvis(Avis avis) {
         em.persist(avis);
     }
     
+    @Override
     public void deleteAvis(Avis avis) {
         em.remove(avis);
     }    
 
+    @Override
     public Avis getAvis(int avisID) {
         Avis avis;
         avis=em.find(Avis.class,avisID);
         return avis;
     }    
+    @Override
         public void updateAvis(Avis avis) {
         em.merge(avis);
     }   
