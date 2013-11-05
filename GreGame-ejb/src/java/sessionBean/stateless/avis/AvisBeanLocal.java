@@ -4,6 +4,8 @@
  */
 package sessionBean.stateless.avis;
 
+import entityBean.Avis;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -12,5 +14,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface AvisBeanLocal {
-    
+ public void saveAvis(Avis avis);
+ public void deleteAvis(Avis avis);
+ public Avis getAvis(int avisID);
+ public List<Avis>  getAllAvis();
+  public void updateAvis(Avis avis);
 }

@@ -4,7 +4,11 @@
  */
 package sessionBean.stateless.avis;
 
+import entityBean.Avis;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -12,8 +16,27 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AvisBean implements AvisBeanLocal {
+    @PersistenceContext(unitName = "GreGame_Persistence")
+    private EntityManager em;
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    public void saveAvis(Avis avis) {
+        em.persist(avis);
+    }
+    
+    public void deleteAvis(Avis avis) {
+        em.remove(avis);
+    }    
 
+    public Avis getAvis(int avisID) {
+        Avis avis;
+        avis=em.find(Avis.class,avisID);
+        return avis;
+    }    
+        public void updateAvis(Avis avis) {
+        em.merge(avis);
+    }   
+    
+        public List<Avis>  getAllAvis() {
+        return em.createNamedQuery("Avis.getAll").getResultList();
+    }    
 }

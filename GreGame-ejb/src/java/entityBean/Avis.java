@@ -7,12 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import javax.validation.constraints.NotNull;
 
 
 
 @Entity
+@NamedQueries(
+        @NamedQuery(name="Avis.getAll", query="select a from avis a"))
 public class Avis implements Serializable {
 	
     private int idAvis;
@@ -29,6 +33,13 @@ public class Avis implements Serializable {
     }
     public void setIdAvis(int idAvis) {
         this.idAvis = idAvis;
+    }
+
+    public Avis(int idAvis, String messageAvis, int noteAvis) {
+        this.idAvis = idAvis;
+        this.messageAvis = messageAvis;
+        this.noteAvis = noteAvis;
+        
     }
 
     @ManyToOne 
