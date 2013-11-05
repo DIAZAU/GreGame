@@ -7,90 +7,50 @@ package sessionBean.stateless.catalogue;
 import entityBean.Article;
 import entityBean.Categorie;
 import entityBean.Produit;
-import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author FALL
  */
 @Stateless
-public class CatalogueBean implements CatalogueBeanRemote {
+public class CatalogueBean implements CatalogueBeanLocal {
+    @PersistenceContext (unitName = "GreGame_Persistence")
+    private EntityManager em;
 
-    @Override
-    public boolean createCategorie(Categorie cat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean createProduit(Produit pro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean createArticle(Article art) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Categorie findCategorie(int idCategorie) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public Produit findProduit(int idProduit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.find(Produit.class, idProduit);
     }
 
     @Override
     public Article findArticle(int idArticle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.find(Article.class, idArticle);
     }
 
     @Override
-    public boolean deleteCategorie(int idCategorie) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Categorie findCategorie(int idCategorie) {
+        return em.find(Categorie.class, idCategorie);
     }
 
     @Override
-    public boolean deletaProduit(int idProduit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List search(String critereSearch) {
+        @SuppressWarnings("StringBufferMayBeStringBuilder")
+        StringBuffer query = new StringBuffer(
+                "SELECT a FROM Article a WHERE a.nomArticle LIKE :critereSearch"
+                + "UNION"
+                + "SELECT a FROM Article a WHERE a.produit.idProduit IN "
+                + "SELECT p.idProduit FROM Produit p WHERE p.nomProduit LIKE :critereSearch"
+                + "OR p.categorie.idCategorie IN SELECT c.idCategorie FROM Categorie c WHERE c.genre LIKE :critereSearch");
+        Query searchQuery;
+        searchQuery = em.createQuery(query.toString());
+        searchQuery.setParameter("critereSearch", critereSearch);
+        return searchQuery.getResultList();
     }
 
-    @Override
-    public boolean deleteArticle(int idAricle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Produit> searchProduit(String critereSearch) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Article> searchArticle(String critereSearch) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Categorie> searchCategorie(String critereSearch) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Produit> findAllProduit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Article> findAllArticle() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Categorie> findAllCategorie() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
 }

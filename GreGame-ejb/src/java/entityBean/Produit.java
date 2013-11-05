@@ -11,11 +11,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Cette classe represente un produit.
+ * @author FALL
+ */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Produit.findAll", query = "SELECT p FROM Produit p"),
+    @NamedQuery(name = "Produit.findByIdProduit", query = "SELECT p FROM Produit p WHERE p.idProduit = :idProduit"),
+    @NamedQuery(name = "Produit.findByNom", query = "SELECT p FROM Produit p WHERE p.nomProduit LIKE :nomProduit"),
+    @NamedQuery(name = "Produit.findByLangue", query = "SELECT p FROM Produit p WHERE p.langueVoix = :langue")})
 public class Produit implements Serializable {
 	private int idProduit;
 	private String nomProduit;

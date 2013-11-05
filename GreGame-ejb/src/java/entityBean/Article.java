@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "Article.findAll", query = "SELECT c FROM Client c"),
     @NamedQuery(name = "Article.findByIdArticle", query = "SELECT a FROM Article a WHERE a.idArticle = :idArticle"),
-    @NamedQuery(name = "Article.findByNomArticle", query = "SELECT a FROM Article a WHERE a.nomArticle = :nomArticle"),
+    @NamedQuery(name = "Article.findByNomArticle", query = "SELECT a FROM Article a WHERE a.nomArticle LIKE :nomArticle"),
     @NamedQuery(name = "Article.findByPrixUnitaire", query = "SELECT a FROM Article a WHERE a.prixUnitaire = :prixUnitaire"),
     @NamedQuery(name = "Article.findByQuantite", query = "SELECT a FROM Article a WHERE a.quantite = :quantite")})
 public class Article implements Serializable {
@@ -25,6 +25,19 @@ public class Article implements Serializable {
     private int prixUnitaire;
     private int quantite;
     private Produit produit;
+
+    public Article() {
+        super();
+    }
+    
+    public Article (int id, String nom, int prix, int quantite, Produit pro){
+        this.idArticle = id;
+        this.nomArticle = nom;
+        this.prixUnitaire = prix;
+        this.quantite = quantite;
+        this.produit = pro;
+        
+    }
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
