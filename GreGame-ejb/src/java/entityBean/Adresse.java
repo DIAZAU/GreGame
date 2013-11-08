@@ -10,6 +10,10 @@ import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
 
+/**
+ *
+ * @author FALL
+ */
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Adresse.findAll", query = "SELECT a FROM Adresse a"),
