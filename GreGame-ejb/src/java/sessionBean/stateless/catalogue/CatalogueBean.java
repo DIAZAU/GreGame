@@ -40,8 +40,7 @@ public class CatalogueBean implements CatalogueBeanLocal {
 
     @Override
     public List search(String critereSearch) {
-        @SuppressWarnings("StringBufferMayBeStringBuilder")
-        StringBuffer query = new StringBuffer(
+        StringBuilder query = new StringBuilder(
                 "SELECT a FROM Article a WHERE a.nomArticle LIKE :critereSearch"
                 + "UNION"
                 + "SELECT a FROM Article a WHERE a.produit.idProduit IN "

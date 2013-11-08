@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c"),
+    @NamedQuery(name = "Client.findClient", query = "SELECT c FROM Client c WHERE c.login = :login and c.motDepasse = :password"),
     @NamedQuery(name = "Client.findByIdclient", query = "SELECT c FROM Client c WHERE c.idClient = :idClient"),
     @NamedQuery(name = "Client.findByNom", query = "SELECT c FROM Client c WHERE c.nomClient = :nomClient"),
     @NamedQuery(name = "Client.findByPrenom", query = "SELECT c FROM Client c WHERE c.prenomClient = :prenomClient"),
@@ -36,6 +37,7 @@ public class Client implements Serializable {
     private String motDepasse;
     private String login;
     private Adresse adrClient;
+    private Adresse adrLivraison;
     private ArrayList<Avis> listAvis;
     private ArrayList<Commande> listCommande;
 
@@ -56,6 +58,15 @@ public class Client implements Serializable {
     }
     public void setAdrClient(Adresse adrClient) {
         this.adrClient = adrClient;
+    }
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "adresse_FK" , referencedColumnName = "idAdresse")
+    public Adresse getAdrLivraison() {
+        return adrLivraison;
+    }
+    public void setAdrLivraison(Adresse adrLivraison) {
+        this.adrLivraison = adrLivraison;
     }
 
     @OneToMany(cascade = CascadeType.ALL)

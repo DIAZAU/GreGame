@@ -6,6 +6,7 @@ package sessionBean.stateless.catalogue;
 
 import entityBean.Article;
 import entityBean.Categorie;
+import entityBean.Fournisseur;
 import entityBean.Produit;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -18,7 +19,7 @@ import javax.persistence.Query;
  * @author FALL
  */
 @Stateless
-public class Catalogue implements CatalogueRemote {
+public class CatalogueRemoteImpl implements CatalogueBeanRemote {
     @PersistenceContext (unitName = "GreGame_Persistence")
     EntityManager em;
 
@@ -135,6 +136,15 @@ public class Catalogue implements CatalogueRemote {
     public List<Categorie> findAllCategorie() {
         Query searchQuery = em.createNamedQuery("Categorie.findAll");
         return searchQuery.getResultList();
+    }
+
+    @Override
+    public List<Fournisseur> findAllFournisseur() {
+        StringBuilder query = new StringBuilder("SELECT f FROM Fournisseur f");
+        Query querySearch = em.createNamedQuery(query.toString());
+        List<Fournisseur> listFournisseur = querySearch.getResultList();
+        listFournisseur.size();
+        return listFournisseur;
     }
 
   

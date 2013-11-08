@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 import javax.validation.constraints.NotNull;
@@ -22,9 +21,7 @@ public class Commande implements Serializable {
 	
     private int idCommande;
     private Date dateCommande;
-    private int fraisPort;
     private Client client;
-    private Adresse adrCommande;
     private ArrayList<LigneCommande> listCommande;
 
     @Id
@@ -45,15 +42,6 @@ public class Commande implements Serializable {
             this.client = clientFK;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "adresse_FK" , referencedColumnName = "idAdresse")
-    public Adresse getAdrCommande() {
-            return adrCommande;
-    }
-    public void setAdrCommande(Adresse adrCommande) {
-            this.adrCommande = adrCommande;
-    }
-
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn (name = "commande")
     public ArrayList<LigneCommande> getListCommande() {
@@ -69,12 +57,6 @@ public class Commande implements Serializable {
     }
     public void setDateCommande(Date dateCommande) {
             this.dateCommande = dateCommande;
-    }
-    public int getFraisPort() {
-            return fraisPort;
-    }
-    public void setFraisPort(int fraisPort) {
-            this.fraisPort = fraisPort;
     }
 
 }

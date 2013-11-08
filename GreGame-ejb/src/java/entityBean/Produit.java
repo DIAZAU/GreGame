@@ -34,9 +34,11 @@ public class Produit implements Serializable {
 	private String langueEcran;
 	private String description;
 	private byte photo;
+        private String numeroProduit;
 	private ArrayList<Avis> listAvis;
 	private ArrayList<Article> listArticle;
 	private Categorie categorie;
+        private Fournisseur fournisseur;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -110,4 +112,35 @@ public class Produit implements Serializable {
 	public void setPhoto(byte photo) {
             this.photo = photo;
 	}
+
+    /**
+     * @return the numeroProduit
+     */
+    @NotNull
+    public String getNumeroProduit() {
+        return numeroProduit;
+    }
+
+    /**
+     * @param numeroProduit the numeroProduit to set
+     */
+    public void setNumeroProduit(String numeroProduit) {
+        this.numeroProduit = numeroProduit;
+    }
+
+    /**
+     * @return the fournisseur
+     */
+    @ManyToOne 
+    @JoinColumn (name = "fournisseur_FK", referencedColumnName = "idFournisseur") 
+    public Fournisseur getFournisseur() {
+        return fournisseur;
+    }
+
+    /**
+     * @param fournisseur the fournisseur to set
+     */
+    public void setFournisseur(Fournisseur fournisseur) {
+        this.fournisseur = fournisseur;
+    }
 }

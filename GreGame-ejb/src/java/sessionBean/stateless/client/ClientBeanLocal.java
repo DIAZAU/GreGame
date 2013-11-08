@@ -1,16 +1,25 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sessionBean.stateless.client;
 
+import entityBean.Adresse;
+import entityBean.Client;
 import javax.ejb.Local;
 
 /**
  *
- * @author FALL
+ * @author LABED
  */
 @Local
 public interface ClientBeanLocal {
+    
+    public Client authenticate(String login, String password);
+    
+    public Adresse createAdresse(Adresse adresse);
+
+    public Client createClient(Client client);
+    
+    public Client updateClient(int idClient, Client client);
+    
+    public void deleteClient(int idClient);
+
     
 }
