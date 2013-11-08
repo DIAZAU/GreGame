@@ -146,6 +146,4 @@ public class CatalogueRemoteImpl implements CatalogueBeanRemote {
         listFournisseur.size();
         return listFournisseur;
     }
-
-  
 }

@@ -33,7 +33,7 @@ public class Produit implements Serializable {
 	private String langueVoix;
 	private String langueEcran;
 	private String description;
-	private byte photo;
+	private byte[] photo;
         private String numeroProduit;
 	private ArrayList<Avis> listAvis;
 	private ArrayList<Article> listArticle;
@@ -106,10 +106,10 @@ public class Produit implements Serializable {
 	}
 	
 	@Lob
-	public byte getPhoto() {
+	public byte[] getPhoto() {
             return photo;
 	}
-	public void setPhoto(byte photo) {
+	public void setPhoto(byte[] photo) {
             this.photo = photo;
 	}
 

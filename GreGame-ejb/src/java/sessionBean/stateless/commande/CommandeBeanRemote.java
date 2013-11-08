@@ -4,6 +4,9 @@
  */
 package sessionBean.stateless.commande;
 
+import entityBean.Client;
+import entityBean.Commande;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -12,5 +15,9 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface CommandeBeanRemote {
+    
+  public void supprimerCommande(int idCommande);
+  public List<Commande> getCommande(Client client);
+  public List<Commande> getAllCommnades();
     
 }

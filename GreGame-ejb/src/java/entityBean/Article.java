@@ -26,19 +26,7 @@ public class Article implements Serializable {
     private int quantite;
     private Produit produit;
 
-    public Article() {
-        super();
-    }
-    
-    public Article (int id, String nom, int prix, int quantite, Produit pro){
-        this.idArticle = id;
-        this.nomArticle = nom;
-        this.prixUnitaire = prix;
-        this.quantite = quantite;
-        this.produit = pro;
-        
-    }
-
+   
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     public int getIdArticle() {

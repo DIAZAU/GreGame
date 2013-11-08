@@ -12,11 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.sun.istack.internal.NotNull;
+
 import java.io.Serializable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -61,7 +62,7 @@ public class Client implements Serializable {
     }
     
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "adresse_FK" , referencedColumnName = "idAdresse")
+    @JoinColumn(name = "adresseLivraison_FK" , referencedColumnName = "idAdresse")
     public Adresse getAdrLivraison() {
         return adrLivraison;
     }
@@ -69,8 +70,7 @@ public class Client implements Serializable {
         this.adrLivraison = adrLivraison;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn (name = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     public ArrayList<Avis> getListAvis() {
         return listAvis;
     }
@@ -78,8 +78,7 @@ public class Client implements Serializable {
         this.listAvis = listAvis;
     }
 
-    @OneToMany (cascade = CascadeType.ALL)
-    @JoinColumn (name = "client")
+    @OneToMany (mappedBy = "client", cascade = CascadeType.ALL)
     public ArrayList<Commande> getListCommande() {
         return listCommande;
     }

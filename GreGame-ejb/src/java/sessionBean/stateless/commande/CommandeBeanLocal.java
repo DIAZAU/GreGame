@@ -4,6 +4,9 @@
  */
 package sessionBean.stateless.commande;
 
+import entityBean.Client;
+import entityBean.Commande;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -12,5 +15,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface CommandeBeanLocal {
+    
+    public void ajouterCommande(Commande commande);
+    public List<Commande> getCommande(Client client);
+    public List<Commande> getAllCommnades();
     
 }

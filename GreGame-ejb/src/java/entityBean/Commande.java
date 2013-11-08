@@ -11,12 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 import javax.validation.constraints.NotNull;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name="Commande.getClientCommandes", query=" Select a from Commande a where a.client.idClient = :idClient"),
+    @NamedQuery(name="Commande.getAllCommandes", query=" Select a from Commande a ")})
 public class Commande implements Serializable {
 	
     private int idCommande;
@@ -42,8 +47,7 @@ public class Commande implements Serializable {
             this.client = clientFK;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn (name = "commande")
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
     public ArrayList<LigneCommande> getListCommande() {
             return listCommande;
     }

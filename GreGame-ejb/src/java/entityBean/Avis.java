@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @NamedQueries(
-        @NamedQuery(name="Avis.findAll", query="select a from avis a"))
+        @NamedQuery(name="Avis.findAll", query="select a from Avis a"))
 public class Avis implements Serializable {
 	
     private int idAvis;
@@ -31,6 +31,7 @@ public class Avis implements Serializable {
 
     public Avis() {
     }
+
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -50,7 +51,7 @@ public class Avis implements Serializable {
     }
 
     @ManyToOne 
-    @JoinColumn (name = "article_FK", referencedColumnName = "idArticle") 
+    @JoinColumn (name = "produit_FK", referencedColumnName = "idProduit") 
     public Produit getProduit() {
         return produit;
     }
