@@ -1,2 +1,5 @@
 /GreGame-ejb/build/
 /build/
+/GreGame-ejb/dist/
+/GreGame-war/build/
+/GreGame-war/dist/
