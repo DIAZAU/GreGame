@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Article.findAll", query = "SELECT c FROM Client c"),
+    @NamedQuery(name = "Article.findQuantiteArticle", query = "SELECT a.quantite FROM Article a WHERE a.idArticle = :idArticle"),
     @NamedQuery(name = "Article.findByIdArticle", query = "SELECT a FROM Article a WHERE a.idArticle = :idArticle"),
     @NamedQuery(name = "Article.findByNomArticle", query = "SELECT a FROM Article a WHERE a.nomArticle LIKE :nomArticle"),
     @NamedQuery(name = "Article.findByPrixUnitaire", query = "SELECT a FROM Article a WHERE a.prixUnitaire = :prixUnitaire"),

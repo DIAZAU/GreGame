@@ -12,11 +12,11 @@ import javax.ejb.Local;
 @Local
 public interface PanierLocal {
       
-    public void addArticle(Article article, int quantité);
+    public void addArticle(int idArticle, int quantite);
     
-    public  void updateQuantiteArticle(Article article, int quantité);
+    public  void updateQuantiteArticle(int idArticle, int quantite);
     
-    public void removeArticle(Article article);
+    public void removeArticle(int idArticle);
 
     public Double getTotal();
 
@@ -24,8 +24,8 @@ public interface PanierLocal {
 
     public List<PanierArticle> getpanierArticles();
     
-    public void validatePanier(Client client);
+    public void validatePanier(int idClent);
     
-    public void invalidatePanier(Client client);
+    public void invalidatePanier(int idClient);
     
 }

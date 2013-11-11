@@ -17,6 +17,7 @@ import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.ValidationException;
 
 /**
  *
@@ -45,40 +46,58 @@ public class Panier implements PanierLocal {
     }
 
     @Override
-    public void addArticle(Article article, int quantité) {
-        boolean articleFound = false;
+    public void addArticle(int idArticle, int quantite) {
         int i = 0;
+        Article article = (Article) em.createNamedQuery("Article.findByIdArticle").setParameter("idArticle", idArticle).getSingleResult();
         //verifier si l'article se trouve dans le panier et si c'est le cas incrementer la quantité de l'article de quantité
-        for (PanierArticle pa : panierArticles) {
-            if (pa.getArticle().equals(article)) {
-                pa.setQuantite(pa.getQuantite() + quantité);
-                panierArticles.set(i, pa);// le changement se fait sur la liste
-                articleFound = true;
+        if (article != null){
+            for (PanierArticle pa : panierArticles) {
+                if (pa.getArticle().equals(article)) {
+                    if (article.getQuantite() >= quantite+pa.getQuantite() ){
+                        pa.setQuantite(pa.getQuantite() + quantite);
+                        article.setQuantite(article.getQuantite()-quantite-pa.getQuantite());
+                        panierArticles.set(i, pa);// le changement se fait sur la liste
+                        return;
+                    }
+                }
+                i++;
             }
-            i++;
-        }
-        // Sinon ajouté une nouvelle entrée dans la liste des articles du client
-        if (articleFound == false) {
-            panierArticles.add(new PanierArticle(article, quantité));
+            // Sinon ajouté une nouvelle entrée dans la liste des articles du client
+           if (article.getQuantite() >= quantite){
+                article.setQuantite(article.getQuantite()-quantite);
+                panierArticles.add(new PanierArticle(article, quantite));
+           }
+           else
+               throw  new ValidationException("Quantite restante insuffisante");
+            
         }
     }
 
     @Override
-    public void updateQuantiteArticle(Article article, int quantité) {
+    public void updateQuantiteArticle(int idArticle, int quantite) {
         int i = 0;
-        for (PanierArticle pa : panierArticles) {
-            if (pa.getArticle().equals(article)) {
-                pa.setQuantite(quantité);
-                panierArticles.set(i, pa);
+        Article article = (Article) em.createNamedQuery("Article.findByIdArticle").setParameter("idArticle", idArticle).getSingleResult();
+        if (article !=null){
+            for (PanierArticle pa : panierArticles) {
+                if (pa.getArticle().getIdArticle() == idArticle  && article.getQuantite() >= quantite) {
+                    pa.setQuantite(quantite);
+                    article.setQuantite(article.getQuantite()-quantite);
+                    panierArticles.set(i, pa);
+                }
+                else
+                    i++;
             }
-            i++;
         }
+        else
+            throw  new ValidationException("L'article n'existe pas");
     }
 
     @Override
-    public void removeArticle(Article article) {
+    public void removeArticle(int idArticle) {
         for (PanierArticle pa : panierArticles) {
-            if (pa.getArticle().equals(article)) {
+            if (pa.getArticle().getIdArticle() == idArticle) {
+                Article article = (Article) em.createNamedQuery("Article.findByIdArticle").setParameter("idArticle", idArticle).getSingleResult();
+                article.setQuantite(article.getQuantite()+pa.getQuantite());
                 panierArticles.remove(pa);
                 return;
             }
@@ -111,8 +130,9 @@ public class Panier implements PanierLocal {
 
     @Override
     @Remove
-    public void validatePanier(Client client) {
-        if (isEmpty()){
+    public void validatePanier(int idClient) {
+        Client client = (Client) em.createNamedQuery("Client.findByIdclient").setParameter("idClient", idClient).getSingleResult();
+        if (isEmpty() && client!=null){
             Commande commandeClient = new Commande();
             commandeClient.setClient(client);
             ArrayList<LigneCommande> listCommande = new ArrayList<LigneCommande>();
@@ -130,10 +150,12 @@ public class Panier implements PanierLocal {
             em.persist(commandeClient);
             clear();
         }
+        else
+            throw new ValidationException("Erreur panier vide");
     }
 
     @Override
-    public void invalidatePanier(Client client) {
+    public void invalidatePanier(int idClient) {
         
     }
 
