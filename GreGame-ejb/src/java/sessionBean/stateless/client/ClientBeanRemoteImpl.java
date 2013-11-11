@@ -25,7 +25,6 @@ public class ClientBeanRemoteImpl implements ClientBeanRemote{
     @Override
     public Client findClient(int idClient) {
         Client client = em.find(Client.class, idClient);
-        client.getListAvis().size();
         return client;
     }
 

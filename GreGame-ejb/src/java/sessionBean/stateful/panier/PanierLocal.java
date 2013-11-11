@@ -26,4 +26,6 @@ public interface PanierLocal {
     
     public void validatePanier(Client client);
     
+    public void invalidatePanier(Client client);
+    
 }

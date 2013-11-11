@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -109,6 +110,7 @@ public class Panier implements PanierLocal {
     }
 
     @Override
+    @Remove
     public void validatePanier(Client client) {
         if (isEmpty()){
             Commande commandeClient = new Commande();
@@ -128,6 +130,11 @@ public class Panier implements PanierLocal {
             em.persist(commandeClient);
             clear();
         }
+    }
+
+    @Override
+    public void invalidatePanier(Client client) {
+        
     }
 
     

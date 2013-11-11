@@ -10,7 +10,6 @@ import entityBean.Fournisseur;
 import entityBean.Produit;
 import java.util.List;
 import javax.ejb.Remote;
-import javax.persistence.Query;
 
 /**
  *
