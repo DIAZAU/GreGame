@@ -2,6 +2,7 @@ package entityBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -35,8 +36,8 @@ public class Produit implements Serializable {
 	private String description;
 	private byte[] photo;
         private String numeroProduit;
-	private ArrayList<Avis> listAvis;
-	private ArrayList<Article> listArticle;
+	private List<Avis> listAvis;
+	private List<Article> listArticle;
 	private Categorie categorie;
         private Fournisseur fournisseur;
 	
@@ -49,19 +50,20 @@ public class Produit implements Serializable {
             this.idProduit = idProduit;
 	}
 	
-	@OneToMany (cascade = CascadeType.ALL, mappedBy = "produit")
-	public ArrayList<Avis> getListAvis() {
+	@OneToMany (cascade = CascadeType.REMOVE, mappedBy = "produit")
+	public List<Avis> getListAvis() {
             return listAvis;
 	}
-	public void setListAvis(ArrayList<Avis> listAvis) {
+	public void setListAvis(List<Avis> listAvis) {
             this.listAvis = listAvis;
 	}
 	
-	@OneToMany (cascade = CascadeType.ALL, mappedBy = "produit")
-	public ArrayList<Article> getListArticle() {
+	
+        @OneToMany(mappedBy = "produit")
+	public List<Article> getListArticle() {
             return listArticle;
 	}
-	public void setListArticle(ArrayList<Article> listArticle) {
+	public void setListArticle(List<Article> listArticle) {
             this.listArticle = listArticle;
 	}
 	

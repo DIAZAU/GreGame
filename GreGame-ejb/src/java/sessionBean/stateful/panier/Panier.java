@@ -143,7 +143,7 @@ public class Panier implements PanierLocal {
                 lc.setCommande(commandeClient);
                 listCommande.add(lc);
                 em.persist(lc);
-                
+      
             }
             commandeClient.setDateCommande(new Date());
             commandeClient.setListCommande(listCommande);

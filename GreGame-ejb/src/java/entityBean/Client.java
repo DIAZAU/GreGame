@@ -70,7 +70,7 @@ public class Client implements Serializable {
         this.adrLivraison = adrLivraison;
     }
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     public ArrayList<Avis> getListAvis() {
         return listAvis;
     }
@@ -78,7 +78,7 @@ public class Client implements Serializable {
         this.listAvis = listAvis;
     }
 
-    @OneToMany (mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "client", cascade = CascadeType.REMOVE)
     public ArrayList<Commande> getListCommande() {
         return listCommande;
     }

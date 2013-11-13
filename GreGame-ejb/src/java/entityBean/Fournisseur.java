@@ -65,7 +65,7 @@ public class Fournisseur implements Serializable {
         adrFournisseur = adr;
     }
 
-    @OneToMany(mappedBy = "fournisseur")
+    @OneToMany(mappedBy = "fournisseur", cascade = CascadeType.ALL)
     public List<Produit> getProduits() {
         return produits;
     }

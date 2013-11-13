@@ -4,6 +4,7 @@
  */
 package sessionBean.stateless.catalogue;
 
+import entityBean.Adresse;
 import entityBean.Article;
 import entityBean.Categorie;
 import entityBean.Fournisseur;
@@ -18,11 +19,13 @@ import javax.ejb.Remote;
 @Remote
 public interface CatalogueBeanRemote {
     
-    public boolean createCategorie(Categorie cat) ;
+    public Categorie createCategorie(Categorie cat) ;
     
-    public boolean createProduit(Produit pro) ;
+    public Produit createProduit(Produit pro) ;
     
-    public boolean createArticle(Article art) ;
+    public Article createArticle(Article art) ;
+    
+    public Fournisseur createFournisseur(Fournisseur four); 
     
     public Categorie findCategorie(int idCategorie);
     
@@ -32,9 +35,11 @@ public interface CatalogueBeanRemote {
     
     public void deleteCategorie(int idCategorie);
     
-    public void deletaProduit(int idProduit);
+    public void deleteProduit(int idProduit);
    
     public void deleteArticle(int idAricle);
+    
+    public void deteleFournisseur(int idFournisseur);
     
     public List<Produit> searchProduit(String critereSearch);
     
@@ -49,6 +54,17 @@ public interface CatalogueBeanRemote {
     public List<Categorie> findAllCategorie() ;
 
     public List<Fournisseur> findAllFournisseur() ;
-  
+    
+    public Adresse updateAdresse(int idAdresse);
+    
+    public Adresse createAdresse(Adresse adresse);
+    
+    public Fournisseur updateFournisseur(int idFournisseur, Fournisseur fournisseur);
+    
+    public void updateCategorie(int idCategorie, Categorie categorie);
+    
+    public void updateProduit(int idProduit, Produit produit);
+   
+    public void updateArticle(int idAricle, Article article); 
     
 }

@@ -4,6 +4,7 @@
  */
 package sessionBean.stateless.catalogue;
 
+import entityBean.Adresse;
 import entityBean.Article;
 import entityBean.Categorie;
 import entityBean.Fournisseur;
@@ -24,36 +25,36 @@ public class CatalogueRemoteImpl implements CatalogueBeanRemote {
     EntityManager em;
 
     @Override
-    public boolean createCategorie(Categorie cat) {
+    public Categorie createCategorie(Categorie cat) {
         List<Categorie> listCategorie;
             if (cat !=null){
             listCategorie = em.createNamedQuery("Categorie.findByCategoriegenre").setParameter("genre", cat.getGenre()).getResultList();
             if (!listCategorie.isEmpty())
-                return false;
+                return null;
             else{
                 em.persist(cat);
             }
-            return true;
+            return cat;
         }
-        return false;
+        return null;
     }
 
     @Override
-    public boolean createProduit(Produit pro) {
+    public Produit createProduit(Produit pro) {
         if (pro != null){
             em.persist(pro);
-            return true;
+            return pro;
         }
-        return false;
+        return null;
     }
 
     @Override
-    public boolean createArticle(Article art) {
+    public Article createArticle(Article art) {
         if (art != null){
             em.persist(art);
-            return true;
+            return art;
         }
-        return false;
+        return null;
     }
 
     /**
@@ -88,7 +89,7 @@ public class CatalogueRemoteImpl implements CatalogueBeanRemote {
     }
 
     @Override
-    public void deletaProduit(int idProduit) {
+    public void deleteProduit(int idProduit) {
         Produit proToRemove = em.find(Produit.class, idProduit);
         em.remove(proToRemove);
     }
@@ -145,5 +146,54 @@ public class CatalogueRemoteImpl implements CatalogueBeanRemote {
         List<Fournisseur> listFournisseur = querySearch.getResultList();
         listFournisseur.size();
         return listFournisseur;
+    }
+
+    @Override
+    public Fournisseur createFournisseur(Fournisseur four) {
+        if (four != null){
+            em.persist(four);
+            return four;
+        }
+        return null;
+    }
+
+    @Override
+    public void deteleFournisseur(int idFournisseur) {
+        Fournisseur four = em.find(Fournisseur.class, idFournisseur);
+        em.remove(four);
+    }
+
+    @Override
+    public Adresse updateAdresse(int idAdresse) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Adresse createAdresse(Adresse adresse) {
+        if (adresse != null){
+            em.persist(adresse);
+            return adresse;
+        } 
+        return null;
+    }
+
+    @Override
+    public Fournisseur updateFournisseur(int idFournisseur, Fournisseur fournisseur) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateCategorie(int idCategorie, Categorie categorie) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateProduit(int idProduit, Produit produit) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateArticle(int idAricle, Article article) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

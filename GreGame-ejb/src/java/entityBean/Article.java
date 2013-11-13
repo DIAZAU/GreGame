@@ -38,8 +38,8 @@ public class Article implements Serializable {
     }
 
 
-    @ManyToOne
     @JoinColumn(name = "produit_FK", referencedColumnName = "idProduit")
+    @ManyToOne
     public Produit getProduit() {
        return produit;
     }
