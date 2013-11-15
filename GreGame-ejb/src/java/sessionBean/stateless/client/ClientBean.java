@@ -15,10 +15,10 @@ import javax.validation.ValidationException;
 
 /**
  *
- * @author FALL && LABED
+ * @author FALL
  */
 @Stateless
-public class ClientBeanLocalImpl implements ClientBeanLocal{
+public class ClientBean implements ClientBeanLocal, ClientBeanRemote{
     
     @PersistenceContext(unitName = "GreGame_Persistence")
     private EntityManager em;
@@ -74,6 +74,36 @@ public class ClientBeanLocalImpl implements ClientBeanLocal{
     @Override
     public Adresse createAdresse(Adresse adresse) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public Client findClient(int idClient) {
+        Client client = em.find(Client.class, idClient);
+        return client;
+    }
+
+
+    @Override
+    public List<Client> findClients() {
+        List<Client> clients = null;
+        clients = em.createNamedQuery("Client.findAll").getResultList();
+        return clients;
+    }
+
+    @Override
+    public List<Adresse> findAdresses() {
+        List<Adresse> adresses = em.createNamedQuery("Adresse.findAll").getResultList();
+        return adresses;
+    }
+
+    @Override
+    public Adresse getAdresseToClient(Client client) {
+        StringBuilder query = new StringBuilder("SELECT a FROM Adresse WHERE id IN "
+                + "SELECT c.adresse.idAdresse FROM Client c WHERE c.idClient LIKE :idClient");
+        Query searchAdresse;
+        searchAdresse = em.createNamedQuery(query.toString());
+        searchAdresse.setParameter("idClient", client.getIdClient());
+        return (Adresse)searchAdresse.getSingleResult();
     }
     
 }

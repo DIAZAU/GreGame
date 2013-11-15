@@ -1,6 +1,8 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package sessionBean.stateless.commande;
-
 
 import entityBean.Client;
 import entityBean.Commande;
@@ -11,10 +13,11 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author AbdelAli
+ * @author FALL
  */
 @Stateless
-public class CommandeLocalBeanImpl implements CommandeBeanLocal{
+public class CommandeBean implements CommandeBeanLocal, CommandeBeanRemote{
+    
     @PersistenceContext (unitName = "GreGame_Persistence")
     private EntityManager em;
 
@@ -32,4 +35,12 @@ public class CommandeLocalBeanImpl implements CommandeBeanLocal{
     public List<Commande> getAllCommnades() {
         return em.createNamedQuery("Commande.getAllCommandes").getResultList();
     }   
+    
+     @Override
+    public void supprimerCommande(int idCommande) {
+        Commande commande;
+        commande= em.find(Commande.class,idCommande);
+        em.remove(commande);
+    }
+
 }
