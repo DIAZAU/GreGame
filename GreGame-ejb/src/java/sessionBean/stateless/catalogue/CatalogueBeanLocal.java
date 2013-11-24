@@ -4,7 +4,6 @@
  */
 package sessionBean.stateless.catalogue;
 
-import entityBean.Article;
 import entityBean.Categorie;
 import entityBean.Produit;
 import java.util.List;
@@ -17,7 +16,6 @@ import javax.ejb.Local;
 @Local
 public interface CatalogueBeanLocal {
     public Produit findProduit(int idProduit);
-    public Article findArticle (int idArticle);
     public Categorie findCategorie (int idCategorie);
     public List search(String critereSearch);
     

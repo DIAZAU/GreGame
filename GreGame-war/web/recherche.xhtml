@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body class="nojs">
+        <h:panelGroup layout="block" id="outer-frame">
+        <h:panelGroup layout="block" id="frame">         
+        <ui:composition template="template.xhtml">
+             <ui:define name="frame">
+             <ui:include src="header.xhtml"/>
+             <h:panelGroup layout="block" id="authentification">
+                 <h:form id="form">
+                     <p:dataGrid var="produit" value="#{compteClientBean.resultatRecherche}" columns="3"
+                                rows="12" paginator="true"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="9,12,15">
+
+                        <p:panel header="#{produit.nomProduit}" style="text-align:center">
+                            <h:panelGrid columns="1" style="width: 100%">
+                                <h:commandLink action="#{catalogueBean.trouverProduit}" >
+                                    <input type="hidden" name="id" value="#{produit.idProduit}" />
+                                    <p:graphicImage value="#{produit.photo}" />
+                                </h:commandLink> 
+                                <p:commandButton action="#" value="Ajouter" title="Ajouter le produit dans votre panier"/>
+                                   
+                            </h:panelGrid>
+                        </p:panel>
+                        </p:dataGrid>
+                </h:form>
+
+             </h:panelGroup>
+                
+             <ui:include src="footer.xhtml"/>
+        </ui:define>
+        </ui:composition>
+        </h:panelGroup ><!-- end #frame -->
+    </h:panelGroup ><!-- end #outer-frame -->	
+</h:body>
+</html>
+

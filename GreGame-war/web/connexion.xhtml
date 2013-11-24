@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body class="nojs">
+        <h:panelGroup layout="block" id="outer-frame">
+             <h:panelGroup layout="block" id="frame">         
+             <ui:composition template="template.xhtml">
+             <ui:define name="frame">
+                <ui:include src="header.xhtml"/>
+                <h:panelGroup layout="block" id="authentification">
+                <h:panelGroup layout="block" id="authentification1">
+                    
+                    <f:view  >
+                            <h:form id="errorAuth">
+                                <p:panel header="Identifiez-vous pour poursuivre" style="padding: 0px">
+                                 <h:panelGrid columns="3" id="grid">
+
+                                    <h:outputLabel value="Login * " />
+                                    <p:inputText value="#{compteClientBean.client.emailClient}"  size="12"  id="login" required="true" requiredMessage="Login non vide"/> 
+                                    <p:message for="login" display="text" />
+
+                                    <h:outputLabel  value="Password * " />                       
+                                    <p:password value="#{compteClientBean.client.motDepasse}"  size="12" id="password"  required="true" requiredMessage="Mot de passe non vide"/>                         
+                                    <p:message for="password" display="text" />
+
+                                </h:panelGrid>
+                                </p:panel>
+                                <h:messages styleClass="errorMessage" globalOnly="true" />
+                                <br/>
+                                <p:commandButton value="Connexion" action="#{compteClientBean.authentication()}" update="grid" />
+                            </h:form>
+                        
+                        </f:view>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" id="authentification2">
+                        <f:view>
+                            <h:form>
+                                <p:panel header="Vous êtes nouveau client GreGame" style="padding: 0px">
+                                    <br/>
+                                    <h:outputText value="Les informations suivantes serviront à vous authentifier et à nous permettre de vous contacter."/>
+                                    <br/>
+                                    <br/>
+                                    <p:panelGrid columns="2" >
+                                        
+                                        <h:outputLabel value="Nom(*)  "/>
+                                        <p:inputText value="#{compteClientBean.client.nomClient}" />
+                                        
+                                        <h:outputLabel value="Prenom(*)  "/>
+                                        <p:inputText value="#{compteClientBean.client.prenomClient}" />
+                                        
+                                        <h:outputLabel value="Email(*)  "/>
+                                        <p:inputText value="#{compteClientBean.client.emailClient}" />
+                                                                                
+                                        <h:outputLabel value="Password(*)  "/>
+                                        <p:inputText value="#{compteClientBean.client.motDepasse}" />
+                                        
+                                        <h:outputLabel value="Adresse 1(*)  "/>
+                                        <p:inputText value="#{compteClientBean.adresse.rue1}" /> 
+                                        
+                                        <h:outputLabel value="Adresse 2(*)  "/>
+                                        <p:inputText value="#{compteClientBean.adresse.rue2}" />
+                                        
+                                        <h:outputLabel value="Code postale (*)  "/>
+                                        <p:inputText value="#{compteClientBean.adresse.codePostale}" />
+                                        
+                                        <h:outputLabel value="Ville (*)  "/>
+                                        <p:inputText value="#{compteClientBean.adresse.ville}" />
+                                        
+                                    </p:panelGrid>
+                                    <br/>
+                                    <h:outputText value="Tous les champs suivis d'un astérisque (*) sont obligatoires"/>
+                                    <h:messages styleClass="errorMessage" globalOnly="true" />
+                                    <br/>
+                                    <br/>
+                                    <p:commandButton value="S'incrire" action="#{compteClientBean.inscrire()}"/>
+                                </p:panel>
+                             </h:form>
+                         </f:view>
+                    </h:panelGroup>
+                    
+               
+                 <h1>Les jeux qui nous excitent !</h1>
+                 <marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
+
+                </h:panelGroup>
+                <ui:include src="footer.xhtml"/>
+            </ui:define>
+            </ui:composition>
+            </h:panelGroup ><!-- end #frame -->
+        </h:panelGroup ><!-- end #outer-frame -->	
+    </h:body>
+</html>
+

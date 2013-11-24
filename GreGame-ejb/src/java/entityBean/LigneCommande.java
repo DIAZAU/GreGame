@@ -16,18 +16,18 @@ import javax.persistence.ManyToOne;
 @Entity
 public class LigneCommande implements Serializable{
     private int id;
-    private Article article;
+    private Produit produit;
     private Commande commande;
     private int quantite;
 	
 	
     @ManyToOne(optional = false)
-    @JoinColumn(name = "article_PK", referencedColumnName = "idArticle")
-    public Article getArticle() {
-            return article;
+    @JoinColumn(name = "produit_PK", referencedColumnName = "idProduit")
+    public Produit getProduit() {
+            return produit;
     }
-    public void setArticle(Article article) {
-            this.article = article;
+    public void setProduit(Produit produit) {
+            this.produit = produit;
     }
 
 

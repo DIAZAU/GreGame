@@ -1,0 +1,44 @@
+    
+<h:panelGroup layout="block" id="container"
+              xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:panelGroup layout="block" id="header">
+        <ul id="slider">
+          <li><img src="${request.contextPath}/resources/images/content/slide1-demo.jpg" alt="" /></li>
+          <li><img src="${request.contextPath}/resources/images/content/slide2-demo.jpg" alt="" /></li>
+          <li><img src="${request.contextPath}/resources/images/content/slide3-demo.jpg" alt="" /></li>
+           <li><img src="${request.contextPath}/resources/images/content/slide4-demo.jpg" alt="" /></li>
+            <li><img src="${request.contextPath}/resources/images/content/slide5-demo.jpg" alt="" /></li>
+             <li><img src="${request.contextPath}/resources/images/content/slide6-demo.jpg" alt="" /></li>
+        </ul>
+  <!-- end #slider -->
+        <h:panelGroup layout="block" id="slide-nav">
+            <a href="#" id="prevslide"></a>
+            <a href="#" id="nextslide"></a>
+        </h:panelGroup ><!-- end #slide-nav -->
+ </h:panelGroup ><!-- end #header -->
+
+<h:panelGroup layout="block" id="content">
+     <h:panelGroup layout="block" id="main">
+                <h1 class="title-line">GreGames</h1>
+                <h:panelGroup layout="block" class="one_third home">
+                        <h2><img src="${request.contextPath}/resources/images/car.png" alt="" width="231" height="146" /></h2>
+                </h:panelGroup ><!-- end .one_third -->
+
+                <h:panelGroup layout="block" class="two_third last">
+                    <p><br/> GreGames est un site de vente en ligne spécialement dédié aux jeux vidéo. Le classement des jeux proposés se fait en fonction des consoles, du type de jeu, de l’année de parution, des auteurs, etc. Grâce à la création d’un compte, les acheteurs ont la possibilité de constituer un panier, de le remplir, de payer leurs achats tout en profitant de promotions éventuelles et évidemment de suivre l’expédition de leurs achats.</p>                                </h:panelGroup ><!-- end .two_third -->
+                <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
+                <h:panelGroup layout="block" class="one_third home">
+                    <h1>Catégories de jeux</h1>
+                </h:panelGroup >
+                <h:panelGroup layout="block" class="two_third2 last">
+                    <img src="${request.contextPath}/resources/images/categorie.png" alt="" />
+                </h:panelGroup ><!-- clear float -->
+                <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
+                <h1>Les jeux qui nous excitent !</h1>
+                <marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
+
+                
+               
+    </h:panelGroup ><!-- end #main -->
+</h:panelGroup ><!-- end #content -->
+</h:panelGroup ><!-- end #container -->

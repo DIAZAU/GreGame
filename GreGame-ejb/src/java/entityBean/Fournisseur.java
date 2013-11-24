@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import javax.validation.constraints.NotNull;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Fournisseur implements Serializable {
-    private List<Produit> produits;
+    private List<Produit> ListProduit;
     private int idFournisseur;
     private String nomFournisseur;
     private String emailFournisseur;
@@ -65,12 +66,14 @@ public class Fournisseur implements Serializable {
         adrFournisseur = adr;
     }
 
-    @OneToMany(mappedBy = "fournisseur", cascade = CascadeType.ALL)
+   
+   
+    @ManyToMany
     public List<Produit> getProduits() {
-        return produits;
+        return ListProduit;
     }
 
     public void setProduits(List<Produit> produits) {
-        this.produits = produits;
+        this.ListProduit = produits;
     }
 }

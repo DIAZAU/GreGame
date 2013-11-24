@@ -4,7 +4,7 @@
  */
 package sessionBean.stateful.panier;
 
-import entityBean.Article;
+import entityBean.Produit;
 import entityBean.Client;
 import entityBean.Commande;
 import entityBean.LigneCommande;
@@ -29,43 +29,45 @@ public class Panier implements PanierLocal {
     @PersistenceContext(unitName = "GreGame_Persistence")
     private EntityManager em;
     
-    private List<PanierArticle> panierArticles;
+    private List<ListeProduit> panierProduits;
     
     public Panier(){
         super();
     }
     
     @PostConstruct
+    @Override
     public void initialize() {
-        panierArticles = new ArrayList<PanierArticle>();
+        panierProduits = new ArrayList<ListeProduit>();
     }
     
     @PreDestroy
+    @Override
     public void clear() {
-        panierArticles = null;
+        panierProduits = null;
     }
 
     @Override
-    public void addArticle(int idArticle, int quantite) {
+    public void addProduit(int idProduit, int quantite) {
         int i = 0;
-        Article article = (Article) em.createNamedQuery("Article.findByIdArticle").setParameter("idArticle", idArticle).getSingleResult();
-        //verifier si l'article se trouve dans le panier et si c'est le cas incrementer la quantité de l'article de quantité
-        if (article != null){
-            for (PanierArticle pa : panierArticles) {
-                if (pa.getArticle().equals(article)) {
-                    if (article.getQuantite() >= quantite+pa.getQuantite() ){
+        Produit produit = (Produit) em.createNamedQuery("Produit.findByIdProduit").setParameter("idProduit", idProduit).getSingleResult();
+        //verifier si l'produit se trouve dans le panier et si c'est le cas incrementer la quantité de l'produit de quantité
+        if (produit != null){
+            for (ListeProduit pa : panierProduits) {
+                if (pa.getProduit().equals(produit)) {
+                    if (produit.getQuantite() >= quantite+pa.getQuantite() ){
                         pa.setQuantite(pa.getQuantite() + quantite);
-                        article.setQuantite(article.getQuantite()-quantite-pa.getQuantite());
-                        panierArticles.set(i, pa);// le changement se fait sur la liste
+                        produit.setQuantite(produit.getQuantite()-quantite-pa.getQuantite());
+                        panierProduits.set(i, pa);// le changement se fait sur la liste
                         return;
                     }
                 }
                 i++;
             }
-            // Sinon ajouté une nouvelle entrée dans la liste des articles du client
-           if (article.getQuantite() >= quantite){
-                article.setQuantite(article.getQuantite()-quantite);
-                panierArticles.add(new PanierArticle(article, quantite));
+            // Sinon ajouté une nouvelle entrée dans la liste des produits du client
+           if (produit.getQuantite() >= quantite){
+                produit.setQuantite(produit.getQuantite()-quantite);
+                panierProduits.add(new ListeProduit(produit, quantite));
            }
            else
                throw  new ValidationException("Quantite restante insuffisante");
@@ -74,31 +76,31 @@ public class Panier implements PanierLocal {
     }
 
     @Override
-    public void updateQuantiteArticle(int idArticle, int quantite) {
+    public void updateQuantiteProduit(int idProduit, int quantite) {
         int i = 0;
-        Article article = (Article) em.createNamedQuery("Article.findByIdArticle").setParameter("idArticle", idArticle).getSingleResult();
-        if (article !=null){
-            for (PanierArticle pa : panierArticles) {
-                if (pa.getArticle().getIdArticle() == idArticle  && article.getQuantite() >= quantite) {
+        Produit produit = (Produit) em.createNamedQuery("Produit.findByIdProduit").setParameter("idProduit", idProduit).getSingleResult();
+        if (produit !=null){
+            for (ListeProduit pa : panierProduits) {
+                if (pa.getProduit().getIdProduit() == idProduit  && produit.getQuantite() >= quantite) {
                     pa.setQuantite(quantite);
-                    article.setQuantite(article.getQuantite()-quantite);
-                    panierArticles.set(i, pa);
+                    produit.setQuantite(produit.getQuantite()-quantite);
+                    panierProduits.set(i, pa);
                 }
                 else
                     i++;
             }
         }
         else
-            throw  new ValidationException("L'article n'existe pas");
+            throw  new ValidationException("L'produit n'existe pas");
     }
 
     @Override
-    public void removeArticle(int idArticle) {
-        for (PanierArticle pa : panierArticles) {
-            if (pa.getArticle().getIdArticle() == idArticle) {
-                Article article = (Article) em.createNamedQuery("Article.findByIdArticle").setParameter("idArticle", idArticle).getSingleResult();
-                article.setQuantite(article.getQuantite()+pa.getQuantite());
-                panierArticles.remove(pa);
+    public void removeProduit(int idProduit) {
+        for (ListeProduit pa : panierProduits) {
+            if (pa.getProduit().getIdProduit() == idProduit) {
+                Produit produit = (Produit) em.createNamedQuery("Produit.findByIdProduit").setParameter("idProduit", idProduit).getSingleResult();
+                produit.setQuantite(produit.getQuantite()+pa.getQuantite());
+                panierProduits.remove(pa);
                 return;
             }
         }
@@ -110,7 +112,7 @@ public class Panier implements PanierLocal {
             return new Double(0);
         }
         Double total = new Double(0);
-        for (PanierArticle pa : panierArticles) {
+        for (ListeProduit pa : panierProduits) {
             total += pa.getSousTotal();
         }
         total = Math.round( total * 100.0 ) / 100.0;
@@ -119,13 +121,13 @@ public class Panier implements PanierLocal {
 
     @Override
     public boolean isEmpty() {
-        return panierArticles != null;
+        return panierProduits != null;
     }
 
     @Override
-    public List<PanierArticle> getpanierArticles() {
-        List listArticle = panierArticles;
-        return listArticle;
+    public List<ListeProduit> getpanierProduits() {
+        List listProduit = panierProduits;
+        return listProduit;
     }
 
     @Override
@@ -136,9 +138,9 @@ public class Panier implements PanierLocal {
             Commande commandeClient = new Commande();
             commandeClient.setClient(client);
             ArrayList<LigneCommande> listCommande = new ArrayList<LigneCommande>();
-            for (PanierArticle pa : panierArticles){
+            for (ListeProduit pa : panierProduits){
                 LigneCommande lc = new LigneCommande();
-                lc.setArticle(pa.getArticle());
+                lc.setProduit(pa.getProduit());
                 lc.setQuantite(pa.getQuantite());
                 lc.setCommande(commandeClient);
                 listCommande.add(lc);

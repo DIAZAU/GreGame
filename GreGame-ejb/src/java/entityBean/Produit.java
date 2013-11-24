@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -34,12 +34,13 @@ public class Produit implements Serializable {
 	private String langueVoix;
 	private String langueEcran;
 	private String description;
-	private byte[] photo;
-        private String numeroProduit;
+	private String photo;
+        private int prixUnitaire;
+        private int quantite;
+        
 	private List<Avis> listAvis;
-	private List<Article> listArticle;
 	private Categorie categorie;
-        private Fournisseur fournisseur;
+        private List<Fournisseur> listFournisseur;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,14 +59,6 @@ public class Produit implements Serializable {
             this.listAvis = listAvis;
 	}
 	
-	
-        @OneToMany(mappedBy = "produit")
-	public List<Article> getListArticle() {
-            return listArticle;
-	}
-	public void setListArticle(List<Article> listArticle) {
-            this.listArticle = listArticle;
-	}
 	
 	@ManyToOne
 	@JoinColumn (name = "categorie_FK", referencedColumnName = "idCategorie")
@@ -107,42 +100,55 @@ public class Produit implements Serializable {
             this.description = description;
 	}
 	
-	@Lob
-	public byte[] getPhoto() {
+	
+	public String getPhoto() {
             return photo;
 	}
-	public void setPhoto(byte[] photo) {
+	public void setPhoto(String photo) {
             this.photo = photo;
 	}
 
     /**
-     * @return the numeroProduit
+     * @return the prixUnitaire
      */
-    @NotNull
-    public String getNumeroProduit() {
-        return numeroProduit;
+    public int getPrixUnitaire() {
+        return prixUnitaire;
     }
 
     /**
-     * @param numeroProduit the numeroProduit to set
+     * @param prixUnitaire the prixUnitaire to set
      */
-    public void setNumeroProduit(String numeroProduit) {
-        this.numeroProduit = numeroProduit;
+    public void setPrixUnitaire(int prixUnitaire) {
+        this.prixUnitaire = prixUnitaire;
     }
 
     /**
-     * @return the fournisseur
+     * @return the quantite
      */
-    @ManyToOne 
-    @JoinColumn (name = "fournisseur_FK", referencedColumnName = "idFournisseur") 
-    public Fournisseur getFournisseur() {
-        return fournisseur;
+    public int getQuantite() {
+        return quantite;
     }
 
     /**
-     * @param fournisseur the fournisseur to set
+     * @param quantite the quantite to set
      */
-    public void setFournisseur(Fournisseur fournisseur) {
-        this.fournisseur = fournisseur;
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+
+    /**
+     * @return the listFournisseur
+     */
+   
+    @ManyToMany(mappedBy = "produits")
+    public List<Fournisseur> getListFournisseur() {
+        return listFournisseur;
+    }
+
+    /**
+     * @param listFournisseur the listFournisseur to set
+     */
+    public void setListFournisseur(List<Fournisseur> listFournisseur) {
+        this.listFournisseur = listFournisseur;
     }
 }

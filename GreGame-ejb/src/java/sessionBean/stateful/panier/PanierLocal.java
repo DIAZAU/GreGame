@@ -1,7 +1,5 @@
 package sessionBean.stateful.panier;
 
-import entityBean.Article;
-import entityBean.Client;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -12,20 +10,24 @@ import javax.ejb.Local;
 @Local
 public interface PanierLocal {
       
-    public void addArticle(int idArticle, int quantite);
+    public void addProduit(int idProduit, int quantite);
     
-    public  void updateQuantiteArticle(int idArticle, int quantite);
+    public  void updateQuantiteProduit(int idProduit, int quantite);
     
-    public void removeArticle(int idArticle);
+    public void removeProduit(int idProduit);
 
     public Double getTotal();
 
     public boolean isEmpty();
 
-    public List<PanierArticle> getpanierArticles();
+    public List<ListeProduit> getpanierProduits();
     
     public void validatePanier(int idClent);
     
     public void invalidatePanier(int idClient);
+
+    public void clear();
+
+    public void initialize();
     
 }

@@ -5,7 +5,6 @@
 package sessionBean.stateless.catalogue;
 
 import entityBean.Adresse;
-import entityBean.Article;
 import entityBean.Categorie;
 import entityBean.Fournisseur;
 import entityBean.Produit;
@@ -31,27 +30,23 @@ public class CatalogueBean implements CatalogueBeanLocal, CatalogueBeanRemote {
     }
 
     @Override
-    public Article findArticle(int idArticle) {
-        return em.find(Article.class, idArticle);
-    }
-
-    @Override
     public Categorie findCategorie(int idCategorie) {
         return em.find(Categorie.class, idCategorie);
     }
 
     @Override
-    public List search(String critereSearch) {
+    public List<Produit> search(String critereSearch) {
         StringBuilder query = new StringBuilder(
-                "SELECT a FROM Article a WHERE a.nomArticle LIKE :critereSearch"
-                + "UNION"
-                + "SELECT a FROM Article a WHERE a.produit.idProduit IN "
-                + "SELECT p.idProduit FROM Produit p WHERE p.nomProduit LIKE :critereSearch"
-                + "OR p.categorie.idCategorie IN SELECT c.idCategorie FROM Categorie c WHERE c.genre LIKE :critereSearch");
+                "SELECT p FROM Produit p WHERE p.nomProduit LIKE :critereSearch"
+                +" OR p.categorie.genre LIKE :critereSearch "
+                + "OR p.categorie.nomCategorie LIKE :critereSearch");
         Query searchQuery;
         searchQuery = em.createQuery(query.toString());
         searchQuery.setParameter("critereSearch", critereSearch);
-        return searchQuery.getResultList();
+        if (searchQuery.getResultList() != null)
+            return (List<Produit>)searchQuery.getResultList();
+        else
+            return null;
     }
 
     @Override
@@ -78,14 +73,6 @@ public class CatalogueBean implements CatalogueBeanLocal, CatalogueBeanRemote {
         return null;
     }
 
-    @Override
-    public Article createArticle(Article art) {
-        if (art != null){
-            em.persist(art);
-            return art;
-        }
-        return null;
-    }
 
    
     @Override
@@ -101,22 +88,9 @@ public class CatalogueBean implements CatalogueBeanLocal, CatalogueBeanRemote {
     }
 
     @Override
-    public void deleteArticle(int idAricle) {
-        Article artToRemove = em.find(Article.class, idAricle);
-        em.remove(artToRemove);
-    }
-
-    @Override
     public List<Produit> searchProduit(String critereSearch) {
         Query searchQuery = em.createNamedQuery("Produit.findByNom");
         searchQuery.setParameter("nomProduit", critereSearch);
-        return searchQuery.getResultList();
-    }
-
-    @Override
-    public List<Article> searchArticle(String critereSearch) {
-        Query searchQuery = em.createNamedQuery("Article.findByNomArticle");
-        searchQuery.setParameter("nomArticle", critereSearch);
         return searchQuery.getResultList();
     }
 
@@ -130,12 +104,6 @@ public class CatalogueBean implements CatalogueBeanLocal, CatalogueBeanRemote {
     @Override
     public List<Produit> findAllProduit() {
         Query searchQuery = em.createNamedQuery("Produit.findAll");
-        return searchQuery.getResultList();
-    }
-
-    @Override
-    public List<Article> findAllArticle() {
-        Query searchQuery = em.createNamedQuery("Article.findAll");
         return searchQuery.getResultList();
     }
 
@@ -170,8 +138,13 @@ public class CatalogueBean implements CatalogueBeanLocal, CatalogueBeanRemote {
     }
 
     @Override
-    public Adresse updateAdresse(int idAdresse) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Adresse updateAdresse(int idAdresse, Adresse adresse) {
+        Adresse adr = em.find(Adresse.class, idAdresse);
+        adr.setCodePostale(adresse.getCodePostale());
+        adr.setRue1(adresse.getRue1());
+        adr.setRue2(adresse.getRue2());
+        adr.setVille(adresse.getVille());
+        return adr;
     }
 
     @Override
@@ -185,22 +158,25 @@ public class CatalogueBean implements CatalogueBeanLocal, CatalogueBeanRemote {
 
     @Override
     public Fournisseur updateFournisseur(int idFournisseur, Fournisseur fournisseur) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Fournisseur four = em.find(Fournisseur.class, idFournisseur);
+        four.setAdrFournisseur(fournisseur.getAdrFournisseur());
+        four.setEmailFournisseur(fournisseur.getEmailFournisseur());
+        return four;
     }
 
     @Override
-    public void updateCategorie(int idCategorie, Categorie categorie) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Categorie updateCategorie(int idCategorie, Categorie categorie) {
+        Categorie cat = em.find(Categorie.class, idCategorie);
+        cat.setGenre(categorie.getGenre());
+        return cat;
     }
 
     @Override
-    public void updateProduit(int idProduit, Produit produit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateArticle(int idAricle, Article article) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Produit updateProduit(int idProduit, Produit produit) {
+        Produit pro = em.find(Produit.class, idProduit);
+        pro.setDescription(produit.getDescription());
+        pro.setNomProduit(produit.getNomProduit());
+        return pro;
     }
 
 }

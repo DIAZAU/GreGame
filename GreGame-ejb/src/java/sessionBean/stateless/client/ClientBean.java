@@ -25,9 +25,7 @@ public class ClientBean implements ClientBeanLocal, ClientBeanRemote{
 
     @Override
     public Client authenticate(String login, String password) {
-        if (login == null || "".equals(login)) {
-            throw new ValidationException("Invalid login");
-        }
+        
         Query query = em.createNamedQuery("Client.findClient");
         query.setParameter("login", login);
         query.setParameter("password", password);
@@ -44,7 +42,7 @@ public class ClientBean implements ClientBeanLocal, ClientBeanRemote{
         if (client == null ) {
             throw new ValidationException("Client object is null or Adresse object is null");
         }
-        List<Client> clients = em.createNamedQuery("Client.findByLogin").setParameter("login", client.getLogin()).getResultList();
+        List<Client> clients = em.createNamedQuery("Client.findByEmail").setParameter("emailClient", client.getEmailClient()).getResultList();
         if (!clients.isEmpty())
             throw  new ValidationException("Le login existe");
         else
@@ -73,7 +71,11 @@ public class ClientBean implements ClientBeanLocal, ClientBeanRemote{
 
     @Override
     public Adresse createAdresse(Adresse adresse) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (adresse != null){
+            em.persist(adresse);
+            return adresse;
+        }
+        return null;
     }
     
     @Override

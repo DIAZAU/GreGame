@@ -23,14 +23,16 @@ import javax.validation.constraints.NotNull;
 public class Categorie implements Serializable {
     private int idCategorie;
     private String genre;
+    private String nomCategorie;
 
     public Categorie() {
         super();
     }
     
-    public Categorie (int id, String genre){
+    public Categorie (int id, String genre, String nom){
         this.genre = genre;
         this.idCategorie = id;
+        this.nomCategorie = nom;
     }
 
     @Id
@@ -49,4 +51,20 @@ public class Categorie implements Serializable {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
+    /**
+     * @return the nomCategorie
+     */
+    public String getNomCategorie() {
+        return nomCategorie;
+    }
+
+    /**
+     * @param nomCategorie the nomCategorie to set
+     */
+    public void setNomCategorie(String nomCategorie) {
+        this.nomCategorie = nomCategorie;
+    }
+
+
 }

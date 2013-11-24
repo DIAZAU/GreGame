@@ -1,7 +1,6 @@
 package entityBean;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -16,31 +15,28 @@ import javax.persistence.OneToOne;
 import java.io.Serializable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c"),
-    @NamedQuery(name = "Client.findClient", query = "SELECT c FROM Client c WHERE c.login = :login and c.motDepasse = :password"),
+    @NamedQuery(name = "Client.findClient", query = "SELECT c FROM Client c WHERE c.emailClient = :emailClient and c.motDepasse = :password"),
     @NamedQuery(name = "Client.findByIdclient", query = "SELECT c FROM Client c WHERE c.idClient = :idClient"),
     @NamedQuery(name = "Client.findByNom", query = "SELECT c FROM Client c WHERE c.nomClient = :nomClient"),
     @NamedQuery(name = "Client.findByPrenom", query = "SELECT c FROM Client c WHERE c.prenomClient = :prenomClient"),
-    @NamedQuery(name = "Client.findByLogin", query = "SELECT c FROM Client c WHERE c.login = :login"),
     @NamedQuery(name = "Client.findByEmail", query = "SELECT c FROM Client c WHERE c.emailClient = :emailClient")})
 public class Client implements Serializable {
     private int idClient;
     private String nomClient;
     private String prenomClient;
     private String emailClient;
-    private Date dateNaissance;
     private String motDepasse;
-    private String login;
     private Adresse adrClient;
     private Adresse adrLivraison;
-    private ArrayList<Avis> listAvis;
-    private ArrayList<Commande> listCommande;
+    private List<Avis> listAvis;
+    private List<Commande> listCommande;
 
 
     @Id
@@ -69,20 +65,22 @@ public class Client implements Serializable {
     public void setAdrLivraison(Adresse adrLivraison) {
         this.adrLivraison = adrLivraison;
     }
-
-    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
-    public ArrayList<Avis> getListAvis() {
+    
+    @XmlTransient
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "client")
+    public List<Avis> getListAvis() {
         return listAvis;
     }
-    public void setListAvis(ArrayList<Avis> listAvis) {
+    public void setListAvis(List<Avis> listAvis) {
         this.listAvis = listAvis;
     }
-
+    
+    @XmlTransient
     @OneToMany (mappedBy = "client", cascade = CascadeType.REMOVE)
-    public ArrayList<Commande> getListCommande() {
+    public List<Commande> getListCommande() {
         return listCommande;
     }
-    public void setListCommande(ArrayList<Commande> listCommande) {
+    public void setListCommande(List<Commande> listCommande) {
         this.listCommande = listCommande;
     }
     @NotNull
@@ -110,23 +108,11 @@ public class Client implements Serializable {
     }
 
 
-    @Temporal(javax.persistence.TemporalType.DATE)
-    public Date getDateNaissance() {
-        return dateNaissance;
-    }
-    public void setDateNaissance(Date dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
     public String getMotDepasse() {
         return motDepasse;
     }
     public void setMotDepasse(String motDepasse) {
         this.motDepasse = motDepasse;
     }
-    public String getLogin() {
-        return login;
-    }
-    public void setLogin(String login) {
-        this.login = login;
-    }
+
 }

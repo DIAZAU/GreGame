@@ -59,7 +59,7 @@ public class Avis implements Serializable {
         this.produit = produitFK;
     }
 
-    @ManyToOne 
+    @ManyToOne(optional = false)
     @JoinColumn (name = "client_FK", referencedColumnName = "idClient") 
     public Client getClient() {
         return client;

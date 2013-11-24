@@ -1,0 +1,52 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui">
+<h:panelGroup layout="block" id="top_container"
+              xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:panelGroup layout="block" id="top">
+    <h:panelGroup layout="block" id="top-left">
+        <h:panelGroup layout="block" id="logo"><a href="#">
+            <img src="${request.contextPath}/resources/images/logo.png"/></a>
+            <h:link outcome="connexion" >
+                 <h:graphicImage  value="/resources/images/compte.jpg" />
+            </h:link>
+        </h:panelGroup>
+    </h:panelGroup >
+    <h:panelGroup layout="block" id="top-right">
+        <h:panelGroup layout="block" id="top-navigation">
+                <ul id="topnav">
+                  <li><h:link value="acceuil" class="current" outcome="index"></h:link></li>
+                  <li><h:link value="PlayStation"  outcome="template" />
+                    <ul>
+                        <li><h:link value="PlayStation 2"  outcome="template" /></li>
+                        <li><h:link value="PlayStation 3"  outcome="template" /></li>
+                        <li><h:link value="PlayStation 4"  outcome="template" /></li>
+                    </ul>
+                 </li>
+                 <li><h:link value="Ordinateur"  outcome="template" /></li>
+                 <li><h:link value="Xbox"  outcome="template" /></li>
+                 <li><h:link value="WII"  outcome="template" /></li>
+                 <li><h:link value="SmartPhone"  outcome="template" /></li>
+                 <li><h:link value="Tablette"  outcome="template" /></li>
+                </ul>
+                <h:panelGroup layout="block" class="clear"></h:panelGroup ><!-- clear float -->
+                <h:panelGroup layout="block" class="search">
+                   <h:form id="formulaire">
+                       <h:inputText id="inputText" value="#{compteClientBean.key}" style="margin-right:10px"/> 
+                       <p:commandButton value="OK" action="#{compteClientBean.recherche()}"/>
+                  </h:form>
+                 </h:panelGroup >
+                 <h:panelGroup layout="block" class="panier">
+                     <br></br><br></br>
+
+                                     0 item
+
+                 </h:panelGroup >
+        </h:panelGroup >
+    <!-- end #top-navigation -->
+    </h:panelGroup ><!-- end #top-right -->
+</h:panelGroup ><!-- end #top -->
+<h:panelGroup layout="block" class="clear"></h:panelGroup ><!-- clear float -->
+</h:panelGroup ><!-- end #top_container -->
+
+</div>

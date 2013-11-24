@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+              xmlns="http://java.sun.com/xml/ns/javaee" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+  <application>
+    <resource-bundle>
+      <base-name>
+        messages
+      </base-name>
+      <var>msg</var>
+    </resource-bundle>
+  </application>
+    <managed-bean>
+        <managed-bean-name>compteClientBean</managed-bean-name>
+        <managed-bean-class>ManagedBean.CompteClientBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    
+   <!-- =========== REGLE DE NAVIGATION ================================== -->  
+       
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>connexion</from-outcome>
+            <to-view-id>/connexion.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/compteClient.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case> 
+    </navigation-rule> 
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>connecte</from-outcome>
+            <to-view-id>/compteClient.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case> 
+    </navigation-rule> 
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>recherche.success</from-outcome>
+            <to-view-id>/recherche.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case> 
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>catalogueBean</managed-bean-name>
+        <managed-bean-class>ManagedBean.CatalogueBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+</faces-config>

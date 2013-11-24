@@ -1,7 +1,7 @@
 package entityBean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -27,7 +27,8 @@ public class Commande implements Serializable {
     private int idCommande;
     private Date dateCommande;
     private Client client;
-    private ArrayList<LigneCommande> listCommande;
+    private String etatCommande;
+    private List<LigneCommande> listCommande;
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -48,10 +49,10 @@ public class Commande implements Serializable {
     }
 
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
-    public ArrayList<LigneCommande> getListCommande() {
+    public List<LigneCommande> getListCommande() {
             return listCommande;
     }
-    public void setListCommande(ArrayList<LigneCommande> listCommande) {
+    public void setListCommande(List<LigneCommande> listCommande) {
             this.listCommande = listCommande;
     }
     @NotNull
@@ -61,6 +62,20 @@ public class Commande implements Serializable {
     }
     public void setDateCommande(Date dateCommande) {
             this.dateCommande = dateCommande;
+    }
+
+    /**
+     * @return the etatCommande
+     */
+    public String getEtatCommande() {
+        return etatCommande;
+    }
+
+    /**
+     * @param etatCommande the etatCommande to set
+     */
+    public void setEtatCommande(String etatCommande) {
+        this.etatCommande = etatCommande;
     }
 
 }

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body class="nojs">
+        <h:panelGroup layout="block" id="outer-frame">
+             <h:panelGroup layout="block" id="frame">         
+             <ui:composition template="template.xhtml">
+             <ui:define name="frame">
+                <ui:include src="header.xhtml"/>
+                <h:panelGroup layout="block" id="authentification" >
+                <c:choose >
+                     <c:when test="#{compteClientBean.logged == false}">
+                         <div class="box">
+                            <h:form id="ErreurAuthentification" >
+                                <dl>
+                                    <dt class="boxHeader">Authentification : </dt>
+                                    <dd class="boxContent">
+                                        <h:message for="ErreurAuthentification"  />
+                                        <dl>
+                                            <dt>Login : </dt>
+                                            <dd>
+                                                <h:inputText value="#{compteClientBean.client.login}" size="16" />
+                                            </dd>
+                                            <dt>Mot de passe :  </dt>
+                                            <dd>
+                                                <h:inputText value="#{compteClientBean.client.motDepasse}" size="16" />
+                                            </dd>
+                                            <dd>
+                                                <h:commandButton action="#{compteClientBean.authentication}" 
+                                                                 value="Se connecter" class="formButton" style="width: 166px;"/>
+                                            </dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                            <dl>
+                                <dt class="boxFooter">
+                                    <h:link value="Creer compte"  outcome="creerCompte" />
+                                </dt>
+                                </dl>
+                            </h:form>
+                        </div>
+                     </c:when>
+                        <c:otherwise>
+                            <div class="box">
+                                <dl>
+                                    <dt class="boxHeader">Bienvenu,
+                                    #{compteClientBean.client.nomClient}</dt>
+                                    <dd class="boxContent">
+                                    <h:form>
+                                        <dl>
+                                        <dd>Vous êtes connecté !</dd>
+                                        <dd>
+                                            <h:commandButton action="#{compteClientBean.deconnection}"
+                                        value="Deconnexion" class="formButton" style="width: 166px;"/>
+                                        </dd>
+                                        </dl>
+                                    </h:form>
+                                    </dd>
+                                </dl>
+                            </div>
+                     </c:otherwise>
+                 </c:choose>
+                 </h:panelGroup >
+                <ui:include src="footer.xhtml"/>
+            </ui:define>
+            </ui:composition>
+            </h:panelGroup ><!-- end #frame -->
+        </h:panelGroup ><!-- end #outer-frame -->	
+    </h:body>
+</html>
+
