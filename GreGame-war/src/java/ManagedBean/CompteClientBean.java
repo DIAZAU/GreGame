@@ -7,9 +7,12 @@ package ManagedBean;
 import entityBean.Adresse;
 import entityBean.Client;
 import entityBean.Produit;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -28,6 +31,7 @@ public class CompteClientBean implements Serializable{
     
 
     private String key = "recherche";
+    private boolean logged = false;
     private List<Produit> resultatRecherche;
     private Client client;
     private Adresse adresse;
@@ -51,7 +55,6 @@ public class CompteClientBean implements Serializable{
             setResultatRecherche(catalogueBean.search(key));
         return "recherche.success";
     }
-  
     
      public String supprimerCompte(){
         try {
@@ -75,6 +78,7 @@ public class CompteClientBean implements Serializable{
     public String authentication(){
         try {
             client = clientBean.authenticate(client.getEmailClient(), client.getMotDepasse());
+            setLogged(true);
         } catch (ValidationException e) {
             String msg = e.getMessage();
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
@@ -103,6 +107,7 @@ public class CompteClientBean implements Serializable{
             client.setAdrClient(adresse);
             client.setAdrLivraison(adresse);
             client = clientBean.createClient(getClient());
+            setLogged(true);
             return "success";
         } catch (ValidationException e) {
             String msg = e.getMessage();
@@ -186,5 +191,19 @@ public class CompteClientBean implements Serializable{
      */
     public void setResultatRecherche(List<Produit> resultatRecherche) {
         this.resultatRecherche = resultatRecherche;
+    }
+
+    /**
+     * @return the logged
+     */
+    public boolean isLogged() {
+        return logged;
+    }
+
+    /**
+     * @param logged the logged to set
+     */
+    public void setLogged(boolean logged) {
+        this.logged = logged;
     }
 }

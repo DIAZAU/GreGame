@@ -27,7 +27,7 @@ public class ClientBean implements ClientBeanLocal, ClientBeanRemote{
     public Client authenticate(String login, String password) {
         
         Query query = em.createNamedQuery("Client.findClient");
-        query.setParameter("login", login);
+        query.setParameter("emailClient", login);
         query.setParameter("password", password);
         //il n'est qu'un seul client avec unseul login et un mot de passe
         if (query.getSingleResult() != null){

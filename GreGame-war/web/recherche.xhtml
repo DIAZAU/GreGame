@@ -20,8 +20,8 @@
 
                         <p:panel header="#{produit.nomProduit}" style="text-align:center">
                             <h:panelGrid columns="1" style="width: 100%">
-                                <h:commandLink action="#{catalogueBean.trouverProduit}" >
-                                    <input type="hidden" name="id" value="#{produit.idProduit}" />
+                                <h:commandLink action="#{catalogueBean.detailProduit()}">
+                                    <f:param name="id" value="#{produit.idProduit}" />
                                     <p:graphicImage value="#{produit.photo}" />
                                 </h:commandLink> 
                                 <p:commandButton action="#" value="Ajouter" title="Ajouter le produit dans votre panier"/>

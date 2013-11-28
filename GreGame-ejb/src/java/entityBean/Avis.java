@@ -25,6 +25,7 @@ public class Avis implements Serializable {
 	
     private int idAvis;
     private String messageAvis;
+    private String titreAvis;
     private int noteAvis;
     private Client client;
     private Produit produit;
@@ -81,6 +82,20 @@ public class Avis implements Serializable {
     }
     public void setNoteAvis(int noteAvis) {
         this.noteAvis = noteAvis;
+    }
+
+    /**
+     * @return the titreAvis
+     */
+    public String getTitreAvis() {
+        return titreAvis;
+    }
+
+    /**
+     * @param titreAvis the titreAvis to set
+     */
+    public void setTitreAvis(String titreAvis) {
+        this.titreAvis = titreAvis;
     }
     
 }

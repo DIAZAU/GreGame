@@ -21,6 +21,12 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     
+     <managed-bean>
+        <managed-bean-name>catalogueBean</managed-bean-name>
+        <managed-bean-class>ManagedBean.CatalogueBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
     
    <!-- =========== REGLE DE NAVIGATION ================================== -->  
        
@@ -59,9 +65,14 @@
             <redirect></redirect>
         </navigation-case> 
     </navigation-rule>
-    <managed-bean>
-        <managed-bean-name>catalogueBean</managed-bean-name>
-        <managed-bean-class>ManagedBean.CatalogueBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>produit.trouve</from-outcome>
+            <to-view-id>/detailProduit.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case> 
+    </navigation-rule>
+   
 </faces-config>

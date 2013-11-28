@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body class="nojs">
+        <h:panelGroup layout="block" id="outer-frame">
+        <h:panelGroup layout="block" id="frame">         
+        <ui:composition template="template.xhtml">
+             <ui:define name="frame">
+             <ui:include src="header.xhtml"/>
+             <h:panelGroup layout="block" id="authentification">
+                 <h:panelGrid columns="2" cellpadding="10">
+                    <p:graphicImage id="tab1Img" value="#{catalogueBean.produit.photo}" />  
+                    <h:outputText id="tab1Text"  value="#{catalogueBean.produit.description}" style="background-size: 30px"/>  
+                 </h:panelGrid>
+             
+             <p:tabView id="tabView">  
+  
+             <p:tab id="tab1" title="Description">  
+                <h:panelGrid columns="2" cellpadding="10">  
+                    <p:dataTable var="produit" value="#{catalogueBean.produit}">  
+                    <p:column headerText="Genre">  
+                        <h:outputText value="#{produit.categorie.genre}"/>  
+                    </p:column>  
+
+                    <p:column headerText="Langue voix">  
+                        <h:outputText value="#{produit.langueVoix}" />  
+                    </p:column>  
+
+                    <p:column headerText="Langue ecran">  
+                        <h:outputText value="#{produit.langueEcran}" />  
+                    </p:column> 
+                     
+                     <p:column headerText="Support">  
+                        <h:outputText value="#{produit.categorie.nomCategorie}" />  
+                    </p:column> 
+                    </p:dataTable>   
+                </h:panelGrid>  
+             </p:tab>  
+
+             <p:tab id="tab2" title="Avis clients">  
+                <h:panelGrid columns="2" cellpadding="10">
+                    
+                </h:panelGrid>  
+             </p:tab>  
+
+             <p:tab id="tab3" title="Nos services">  
+                <h:panelGrid columns="2" cellpadding="10">  
+                    
+                </h:panelGrid>  
+             </p:tab>  
+
+             </p:tabView>
+              <br/> <br/>
+              <h1>Les jeux qui nous excitent !</h1>
+              <marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
+
+             </h:panelGroup>
+                
+             <ui:include src="footer.xhtml"/>
+        </ui:define>
+        </ui:composition>
+        </h:panelGroup ><!-- end #frame -->
+    </h:panelGroup ><!-- end #outer-frame -->	
+</h:body>
+</html>
+

@@ -29,7 +29,7 @@ public class CatalogueBean {
         produit = new Produit();
     }
     
-    public String trouverProduit(ActionEvent event){
+    public String detailProduit(){
         String param = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
         setId(Integer.parseInt(param));
         produit = catalogue.findProduit(id);
