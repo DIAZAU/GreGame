@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body class="nojs">
+        <h:panelGroup layout="block" id="outer-frame">
+        <h:panelGroup layout="block" id="frame">         
+        <ui:composition template="template.xhtml">
+             <ui:define name="frame">
+             <ui:include src="header.xhtml"/>
+             <h:panelGroup layout="block" id="authentification">
+                 <c:choose>
+                    <c:when test="#{panierBean.panier.isEmpty() == false}">
+                        <h:form>
+                            <h:commandButton action="#{panierBean.commandeEtape1()}" value="Passer la commande" class="retour" style="margin-left: 83%"></h:commandButton>     
+                        </h:form>
+                        <br/>
+                        <h:form>
+                            <p:dataTable var="panier" value="#{panierBean.panier.getpanierProduits()}" editable="true">
+
+                                <f:facet name="header">  
+                                    Mon panier
+                                </f:facet> 
+                                
+                                <p:column id="modelHeader" headerText="Produit(s)">
+                                    <h:graphicImage value="#{panier.produit.photo}" style="width: 30%" />
+                                </p:column>
+
+                                <p:column headerText="Prix Unitaire">
+                                    <h:outputText value="#{panier.produit.prixUnitaire} €" />
+                                </p:column>
+
+                                <p:column headerText="Quantité">
+                                    <h:outputText value="#{panier.quantite} " />
+                                </p:column>
+
+                                <p:column headerText="Prix Total">
+                                    <h:outputText value="#{panier.sousTotal} €" />
+                                </p:column>
+
+                                <p:column headerText="Supprimer">
+                                    <p:commandButton  value="Supprimer" icon="ui-icon-close" 
+                                                      action="#{panierBean.supprimeProduit(panier.produit.idProduit)}"/>  
+                                </p:column>
+
+                                <p:columnGroup type="footer">
+                                    <p:row>
+                                        <p:column colspan="4" footerText="Totals:"
+                                                        style="text-align:right"  />
+                                        <p:column footerText="#{panierBean.prixTotals()} €" />
+                                    </p:row>
+                                </p:columnGroup>
+                            </p:dataTable>
+                        </h:form> 
+                 </c:when>
+                 <c:otherwise>
+                     <h:link outcome="index">
+                        <h:graphicImage value="\resources\images\panier-vide.gif" style="width: 60%;padding-left: 30%" />
+                     </h:link>
+                 </c:otherwise>
+                 </c:choose>
+                 
+                 <h:outputLink value="JavaScript:history.go(-1);" class="retour" >
+                     <h:outputText value="RETOUR"/>
+                 </h:outputLink>
+                 
+             </h:panelGroup>
+                
+             <ui:include src="footer.xhtml"/>
+        </ui:define>
+        </ui:composition>
+        </h:panelGroup ><!-- end #frame -->
+    </h:panelGroup ><!-- end #outer-frame -->	
+</h:body>
+</html>
+

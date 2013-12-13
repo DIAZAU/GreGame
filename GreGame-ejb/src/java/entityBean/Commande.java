@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NamedQueries({
     @NamedQuery(name="Commande.getClientCommandes", query=" Select a from Commande a where a.client.idClient = :idClient"),
+     @NamedQuery(name="Commande.getClientCommandesEncours", query=" Select a from Commande a where a.client.idClient = :idClient and a.etatCommande = :etatCommande"),
     @NamedQuery(name="Commande.getAllCommandes", query=" Select a from Commande a ")})
 public class Commande implements Serializable {
 	

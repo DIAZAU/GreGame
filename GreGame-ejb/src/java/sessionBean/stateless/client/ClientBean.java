@@ -24,7 +24,7 @@ public class ClientBean implements ClientBeanLocal, ClientBeanRemote{
     private EntityManager em;
 
     @Override
-    public Client authenticate(String login, String password) {
+    public Client authenticate(String login, String password) throws ValidationException{
         
         Query query = em.createNamedQuery("Client.findClient");
         query.setParameter("emailClient", login);
@@ -34,11 +34,11 @@ public class ClientBean implements ClientBeanLocal, ClientBeanRemote{
             return (Client) query.getSingleResult();
         }
         else
-            throw  new ValidationException("Indentifiant error");
+            throw  new ValidationException("Identifiants non reconnues");
     }
 
     @Override
-    public Client createClient(Client client) {
+    public Client createClient(Client client) throws ValidationException{
         if (client == null ) {
             throw new ValidationException("Client object is null or Adresse object is null");
         }

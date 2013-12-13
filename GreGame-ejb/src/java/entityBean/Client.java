@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Client.findByIdclient", query = "SELECT c FROM Client c WHERE c.idClient = :idClient"),
     @NamedQuery(name = "Client.findByNom", query = "SELECT c FROM Client c WHERE c.nomClient = :nomClient"),
     @NamedQuery(name = "Client.findByPrenom", query = "SELECT c FROM Client c WHERE c.prenomClient = :prenomClient"),
-    @NamedQuery(name = "Client.findByEmail", query = "SELECT c FROM Client c WHERE c.emailClient = :emailClient")})
+    @NamedQuery(name = "Client.findByEmail", query = "SELECT c FROM Client c WHERE c.emailClient LIKE :emailClient")})
 public class Client implements Serializable {
     private int idClient;
     private String nomClient;

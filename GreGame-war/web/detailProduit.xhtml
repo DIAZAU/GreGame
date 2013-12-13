@@ -34,8 +34,8 @@
                         <h:outputText value="#{produit.langueEcran}" />  
                     </p:column> 
                      
-                     <p:column headerText="Support">  
-                        <h:outputText value="#{produit.categorie.nomCategorie}" />  
+                     <p:column headerText="Plateforme">  
+                        <h:outputText value="#{produit.categorie.plateforme}" />  
                     </p:column> 
                     </p:dataTable>   
                 </h:panelGrid>  
@@ -54,9 +54,13 @@
              </p:tab>  
 
              </p:tabView>
-              <br/> <br/>
-              <h1>Les jeux qui nous excitent !</h1>
-              <marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
+             <br/> <br/>
+             <h:outputLink value="JavaScript:history.go(-1);" class="retour">
+                    <h:outputText value="RETOUR"/>
+             </h:outputLink>
+             <br/> <br/>
+             <h1>Les jeux qui nous excitent !</h1>
+             <marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
 
              </h:panelGroup>
                 

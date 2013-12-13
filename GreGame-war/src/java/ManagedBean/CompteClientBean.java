@@ -7,12 +7,9 @@ package ManagedBean;
 import entityBean.Adresse;
 import entityBean.Client;
 import entityBean.Produit;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -35,6 +32,7 @@ public class CompteClientBean implements Serializable{
     private List<Produit> resultatRecherche;
     private Client client;
     private Adresse adresse;
+    private Adresse adresseLivraison;
     @EJB
     private  ClientBeanLocal clientBean;
     @EJB
@@ -44,6 +42,7 @@ public class CompteClientBean implements Serializable{
     public CompteClientBean() {
         client = new Client();
         adresse = new Adresse();
+        adresseLivraison = new Adresse();
         resultatRecherche = new ArrayList<Produit>();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) ec.getRequest();
@@ -53,6 +52,7 @@ public class CompteClientBean implements Serializable{
     public String recherche(){
         if (catalogueBean.search(key) != null)
             setResultatRecherche(catalogueBean.search(key));
+        setKey("recherche");
         return "recherche.success";
     }
     
@@ -79,6 +79,7 @@ public class CompteClientBean implements Serializable{
         try {
             client = clientBean.authenticate(client.getEmailClient(), client.getMotDepasse());
             setLogged(true);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idClient", String.valueOf(client.getIdClient()));
         } catch (ValidationException e) {
             String msg = e.getMessage();
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
@@ -97,8 +98,9 @@ public class CompteClientBean implements Serializable{
     }
     
     public  String authentificationCammande(){
-        if (authentication().compareTo("connecte") == 0)
+        if (authentication().compareTo("connecte") == 0){
             return "continuCommande";
+        }
         else 
             return "";
     }
@@ -106,8 +108,10 @@ public class CompteClientBean implements Serializable{
         try {
             client.setAdrClient(adresse);
             client.setAdrLivraison(adresse);
+            adresseLivraison = adresse;
             client = clientBean.createClient(getClient());
             setLogged(true);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idClient", String.valueOf(client.getIdClient()));
             return "success";
         } catch (ValidationException e) {
             String msg = e.getMessage();
@@ -126,15 +130,41 @@ public class CompteClientBean implements Serializable{
     }
         
     public String inscrireCommande(){
-         if (inscrire().compareTo("success") == 0)
-             return "continuCommande";
-         else
-             return "";
+         try {
+            client.setAdrClient(adresse);
+            client.setAdrLivraison(adresse);
+            adresseLivraison = adresse;
+            client = clientBean.createClient(getClient());
+            setLogged(true);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idClient", String.valueOf(client.getIdClient()));
+            return "continuCommande";
+        } catch (ValidationException e) {
+            String msg = e.getMessage();
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            FacesContext fc = FacesContext.getCurrentInstance();
+            fc.addMessage(null, facesMsg);
+            return "";
+            
+        } catch (Exception e){
+            String msg = "Nous avons rencontrés des problémes lors de l'ajout";
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            FacesContext fc = FacesContext.getCurrentInstance();
+            fc.addMessage(null, facesMsg);
+            return "";
+        }
      }
+    
+    public String commandeEtape2(){
+        client.setAdrLivraison(adresseLivraison);
+        client = clientBean.updateClient(client.getIdClient(), client);
+        return "continuCommande2";
+    }
+
         
     
-    public void deconnection(){
-        
+    public String deconnection(){
+        setLogged(false);
+        return "acceuil";
     }
 
     /**
@@ -206,4 +236,19 @@ public class CompteClientBean implements Serializable{
     public void setLogged(boolean logged) {
         this.logged = logged;
     }
+
+    /**
+     * @return the adresseLivraison
+     */
+    public Adresse getAdresseLivraison() {
+        return adresseLivraison;
+    }
+
+    /**
+     * @param adresseLivraison the adresseLivraison to set
+     */
+    public void setAdresseLivraison(Adresse adresseLivraison) {
+        this.adresseLivraison = adresseLivraison;
+    }
+
 }

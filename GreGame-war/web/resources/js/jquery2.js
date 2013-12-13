@@ -16,3 +16,11 @@ var $ = jQuery.noConflict();
             pauseOnPagerHover: 0 // true to pause when hovering over pager link
         });	
 });
+$(document).ready(function(){
+	$('#pauseButton').click(function() { 
+	    $('#slider').cycle('pause'); 
+	});
+	$('#resumeButton').click(function() { 
+	    $('#slider').cycle('resume'); 
+	});
+});

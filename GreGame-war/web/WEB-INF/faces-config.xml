@@ -27,6 +27,12 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     
+   <managed-bean>
+        <managed-bean-name>panierBean</managed-bean-name>
+        <managed-bean-class>ManagedBean.PanierBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
     
    <!-- =========== REGLE DE NAVIGATION ================================== -->  
        
@@ -69,10 +75,64 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
+            <from-outcome>categorie.trouver</from-outcome>
+            <to-view-id>/rechercheParCategorie.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case> 
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
             <from-outcome>produit.trouve</from-outcome>
             <to-view-id>/detailProduit.xhtml</to-view-id>
             <redirect></redirect>
         </navigation-case> 
     </navigation-rule>
-   
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>panier.trouver</from-outcome>
+            <to-view-id>/afficherPanier.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case> 
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>continuCommande</from-outcome>
+            <to-view-id>/commandeEtape1.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case> 
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>continuCommande2</from-outcome>
+            <to-view-id>/commandeEtape2.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case> 
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>panier.valider</from-outcome>
+            <to-view-id>/commandeEtape3.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case> 
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>acceuil</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case> 
+    </navigation-rule>
+    
 </faces-config>

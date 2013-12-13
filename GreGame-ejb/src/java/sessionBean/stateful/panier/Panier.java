@@ -12,15 +12,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ValidationException;
 
 /**
- *
  * @author FALL && LABED
  */
 @Stateful
@@ -41,10 +38,10 @@ public class Panier implements PanierLocal {
         panierProduits = new ArrayList<ListeProduit>();
     }
     
-    @PreDestroy
+   
     @Override
     public void clear() {
-        panierProduits = null;
+        panierProduits.clear();
     }
 
     @Override
@@ -54,37 +51,28 @@ public class Panier implements PanierLocal {
         //verifier si l'produit se trouve dans le panier et si c'est le cas incrementer la quantité de l'produit de quantité
         if (produit != null){
             for (ListeProduit pa : panierProduits) {
-                if (pa.getProduit().equals(produit)) {
-                    if (produit.getQuantite() >= quantite+pa.getQuantite() ){
-                        pa.setQuantite(pa.getQuantite() + quantite);
-                        produit.setQuantite(produit.getQuantite()-quantite-pa.getQuantite());
-                        panierProduits.set(i, pa);// le changement se fait sur la liste
-                        return;
-                    }
+                if (pa.getProduit().getIdProduit() == idProduit) {
+                    pa.setQuantite(pa.getQuantite() + quantite);
+                    panierProduits.set(i, pa);// le changement se fait sur la liste
+                    return;
                 }
                 i++;
             }
             // Sinon ajouté une nouvelle entrée dans la liste des produits du client
-           if (produit.getQuantite() >= quantite){
-                produit.setQuantite(produit.getQuantite()-quantite);
-                panierProduits.add(new ListeProduit(produit, quantite));
-           }
-           else
-               throw  new ValidationException("Quantite restante insuffisante");
-            
+            panierProduits.add(new ListeProduit(produit, quantite));
         }
-    }
+ }
 
     @Override
-    public void updateQuantiteProduit(int idProduit, int quantite) {
+    public void updateQuantiteProduit(int idProduit, int quantite) throws ValidationException{
         int i = 0;
         Produit produit = (Produit) em.createNamedQuery("Produit.findByIdProduit").setParameter("idProduit", idProduit).getSingleResult();
         if (produit !=null){
             for (ListeProduit pa : panierProduits) {
-                if (pa.getProduit().getIdProduit() == idProduit  && produit.getQuantite() >= quantite) {
+                if (pa.getProduit().getIdProduit() == idProduit) {
                     pa.setQuantite(quantite);
-                    produit.setQuantite(produit.getQuantite()-quantite);
                     panierProduits.set(i, pa);
+                    return ;
                 }
                 else
                     i++;
@@ -98,8 +86,6 @@ public class Panier implements PanierLocal {
     public void removeProduit(int idProduit) {
         for (ListeProduit pa : panierProduits) {
             if (pa.getProduit().getIdProduit() == idProduit) {
-                Produit produit = (Produit) em.createNamedQuery("Produit.findByIdProduit").setParameter("idProduit", idProduit).getSingleResult();
-                produit.setQuantite(produit.getQuantite()+pa.getQuantite());
                 panierProduits.remove(pa);
                 return;
             }
@@ -121,7 +107,7 @@ public class Panier implements PanierLocal {
 
     @Override
     public boolean isEmpty() {
-        return panierProduits != null;
+        return panierProduits.isEmpty();
     }
 
     @Override
@@ -131,25 +117,37 @@ public class Panier implements PanierLocal {
     }
 
     @Override
-    @Remove
-    public void validatePanier(int idClient) {
+    public void validatePanier(int idClient) throws ValidationException{
         Client client = (Client) em.createNamedQuery("Client.findByIdclient").setParameter("idClient", idClient).getSingleResult();
-        if (isEmpty() && client!=null){
+        if (!isEmpty() && client!=null){
             Commande commandeClient = new Commande();
             commandeClient.setClient(client);
-            ArrayList<LigneCommande> listCommande = new ArrayList<LigneCommande>();
-            for (ListeProduit pa : panierProduits){
-                LigneCommande lc = new LigneCommande();
-                lc.setProduit(pa.getProduit());
-                lc.setQuantite(pa.getQuantite());
-                lc.setCommande(commandeClient);
-                listCommande.add(lc);
-                em.persist(lc);
-      
-            }
+            commandeClient.setEtatCommande("En cours");
             commandeClient.setDateCommande(new Date());
-            commandeClient.setListCommande(listCommande);
             em.persist(commandeClient);
+            //ArrayList<LigneCommande> listCommande = new ArrayList<LigneCommande>();
+            Produit produit = null;
+            ListeProduit pa = null;
+            int i = 0;
+            for (i = 0; i < panierProduits.size(); i++){
+                pa  = panierProduits.get(i);
+                produit = (Produit)em.createNamedQuery("Produit.findByIdProduit").setParameter("idProduit", pa.getProduit().getIdProduit()).getSingleResult();
+                if (produit.getQuantite()>= pa.getQuantite()){
+                    LigneCommande lc = new LigneCommande();
+                    lc.setProduit(pa.getProduit());
+                    lc.setQuantite(pa.getQuantite());
+                    lc.setCommande(commandeClient);
+                    //listCommande.add(lc);
+                    produit.setQuantite(produit.getQuantite()-pa.getQuantite());
+                    em.persist(lc);
+                }
+                else
+                    throw new ValidationException("Commande non validée");
+                produit = null;
+                pa = null;
+            }
+            //commandeClient.setListCommande(listCommande);
+            
             clear();
         }
         else
@@ -160,7 +158,4 @@ public class Panier implements PanierLocal {
     public void invalidatePanier(int idClient) {
         
     }
-
-    
-
 }

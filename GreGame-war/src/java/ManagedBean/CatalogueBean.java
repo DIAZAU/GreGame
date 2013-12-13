@@ -5,16 +5,18 @@
 package ManagedBean;
 
 import entityBean.Produit;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import sessionBean.stateless.catalogue.CatalogueBeanLocal;
 
 /**
  *
  * @author FALL
  */
-public class CatalogueBean {
+public class CatalogueBean implements Serializable{
 
     /**
      * Creates a new instance of CatalogueBean
@@ -23,10 +25,13 @@ public class CatalogueBean {
     private CatalogueBeanLocal catalogue;
     private Produit produit;
     private String key;
+    private String categorie;
     private int id;
+    private List<Produit> resultatRecherche;
     
     public CatalogueBean() {
         produit = new Produit();
+        resultatRecherche = new ArrayList<Produit>();
     }
     
     public String detailProduit(){
@@ -34,6 +39,14 @@ public class CatalogueBean {
         setId(Integer.parseInt(param));
         produit = catalogue.findProduit(id);
         return "produit.trouve";
+    }
+    
+    public String rechercheParCategorie(){
+        String param = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("categorie");
+        setCategorie(param);
+        System.out.println(param);
+        setResultatRecherche((List<Produit>) catalogue.searchByCategorie(getCategorie()));
+        return "categorie.trouver";
     }
 
     /**
@@ -76,5 +89,33 @@ public class CatalogueBean {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * @return the categorie
+     */
+    public String getCategorie() {
+        return categorie;
+    }
+
+    /**
+     * @param categorie the categorie to set
+     */
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+
+    /**
+     * @return the resultatRecherche
+     */
+    public List<Produit> getResultatRecherche() {
+        return resultatRecherche;
+    }
+
+    /**
+     * @param resultatRecherche the resultatRecherche to set
+     */
+    public void setResultatRecherche(List<Produit> resultatRecherche) {
+        this.resultatRecherche = resultatRecherche;
     }
 }

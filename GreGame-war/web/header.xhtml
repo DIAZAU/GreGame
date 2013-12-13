@@ -1,6 +1,7 @@
 <div xmlns="http://www.w3.org/1999/xhtml"
      xmlns:h="http://java.sun.com/jsf/html"
-     xmlns:p="http://primefaces.org/ui">
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:panelGroup layout="block" id="top_container"
               xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:panelGroup layout="block" id="top">
@@ -15,19 +16,101 @@
     <h:panelGroup layout="block" id="top-right">
         <h:panelGroup layout="block" id="top-navigation">
                 <ul id="topnav">
-                  <li><h:link value="acceuil" class="current" outcome="index"></h:link></li>
-                  <li><h:link value="PlayStation"  outcome="template" />
+                  <li><h:link value="Acceuil" class="current" outcome="index"></h:link></li>
+                  <li><h:form>
+                        <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="PlayStation">
+                            <f:param name="categorie" value="PlayStation" />
+                        </h:commandLink>
+                      </h:form>
                     <ul>
-                        <li><h:link value="PlayStation 2"  outcome="template" /></li>
-                        <li><h:link value="PlayStation 3"  outcome="template" /></li>
-                        <li><h:link value="PlayStation 4"  outcome="template" /></li>
+                        <li>
+                            <h:form>
+                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="PlayStation 2">
+                                    <f:param name="categorie" value="PlayStation2" />
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li>
+                            <h:form>
+                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="PlayStation 3">
+                                    <f:param name="categorie" value="PlayStation3" />
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li>
+                            <h:form>
+                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="PlayStation 4">
+                                    <f:param name="categorie" value="PlayStation4" />
+                                </h:commandLink>
+                            </h:form>
+                        </li>
                     </ul>
                  </li>
-                 <li><h:link value="Ordinateur"  outcome="template" /></li>
-                 <li><h:link value="Xbox"  outcome="template" /></li>
-                 <li><h:link value="WII"  outcome="template" /></li>
-                 <li><h:link value="SmartPhone"  outcome="template" /></li>
-                 <li><h:link value="Tablette"  outcome="template" /></li>
+                 <li><h:form><h:commandLink action="#" value="Ordinateur"/></h:form>
+                     <ul>
+                        <li>
+                            <h:form>
+                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="MacOS">
+                                    <f:param name="categorie" value="MacOS" />
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li>
+                            <h:form>
+                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="Windows">
+                                    <f:param name="categorie" value="Windows" />
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li>
+                            <h:form>
+                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="Linux">
+                                    <f:param name="categorie" value="Linux" />
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                    </ul>
+                 </li>
+                 <li><h:link value="Xbox"  outcome="template" />
+                     <ul>
+                        <li>
+                            <h:form>
+                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="Xbox">
+                                    <f:param name="categorie" value="Xbox" />
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li>
+                            <h:form>
+                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="Xbox 360">
+                                    <f:param name="categorie" value="Xbox360" />
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li>
+                            <h:form>
+                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="Xbox ONE">
+                                    <f:param name="categorie" value="XboxONE" />
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                    </ul>
+                 </li>
+                 <li>
+                     <h:form>
+                         <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="Wii">
+                            <f:param name="categorie" value="Wii" />
+                        </h:commandLink>
+                     </h:form>
+                 </li>
+                 <li>
+                     <h:form>
+                         <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="Nintendo 3DS">
+                            <f:param name="categorie" value="Nintendo3DS" />
+                        </h:commandLink>
+                     </h:form>
+                 </li>
+                 <li><h:form><h:commandLink action="#" value="Autres"/></h:form></li>
                 </ul>
                 <h:panelGroup layout="block" class="clear"></h:panelGroup ><!-- clear float -->
                 <h:panelGroup layout="block" class="search">
@@ -36,12 +119,11 @@
                        <p:commandButton value="OK" action="#{compteClientBean.recherche()}"/>
                   </h:form>
                  </h:panelGroup >
-                 <h:panelGroup layout="block" class="panier">
+                 
+                 <h:link  class="panier"  outcome="afficherPanier">
                      <br></br><br></br>
-
-                                     0 item
-
-                 </h:panelGroup >
+                     <h:outputText value="#{panierBean.nombreArticle()} item(s)" style="color: #ffffff"> </h:outputText>
+                 </h:link> >
         </h:panelGroup >
     <!-- end #top-navigation -->
     </h:panelGroup ><!-- end #top-right -->

@@ -7,6 +7,7 @@ package sessionBean.stateless.catalogue;
 import entityBean.Adresse;
 import entityBean.Categorie;
 import entityBean.Fournisseur;
+import entityBean.ModeLivraison;
 import entityBean.Produit;
 import java.util.List;
 import javax.ejb.Remote;
@@ -53,5 +54,13 @@ public interface CatalogueBeanRemote {
     public Categorie updateCategorie(int idCategorie, Categorie categorie);
     
     public Produit updateProduit(int idProduit, Produit produit);
+    
+    public ModeLivraison createModeLivraison(ModeLivraison ml);
+    
+    public ModeLivraison updateModeLivraison(int idModeLivraison, ModeLivraison ml);
+    
+    public void deleteModeLivraison(int idModeLivraison);
+    
+    public List findAllModeLivraison();
     
 }

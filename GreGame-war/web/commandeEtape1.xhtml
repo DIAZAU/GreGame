@@ -12,11 +12,10 @@
              <ui:composition template="template.xhtml">
              <ui:define name="frame">
                 <ui:include src="header.xhtml"/>
+                <h:panelGroup layout="block" id="authentification">
                 <c:choose>
                     <c:when test="#{compteClientBean.logged == false}">
-                        <h:panelGroup layout="block" id="authentification">
                         <h:panelGroup layout="block" id="authentification1">
-
                             <f:view>
                                     <h:form id="errorAuth">
                                         <p:panel header="Identifiez-vous pour poursuivre" style="padding: 0px">
@@ -31,7 +30,7 @@
 
                                             <h:outputLabel  value="Mot de passe * " />                       
                                             <p:password value="#{compteClientBean.client.motDepasse}"  size="12" id="password"  
-                                                        required="true" requiredMessage="Mot de passe non vide"/>                         
+                                                        required="true" requiredMessage="Mot de passe non vide" feedback="true"/>                         
                                             <p:message for="password" display="text" />
 
                                         </h:panelGrid>
@@ -40,7 +39,7 @@
                                         </p:panel>
                                         <h:messages styleClass="errorMessage" globalOnly="true" id="messageError" style="color: red"/>
                                         <br/>
-                                        <p:commandButton value="Connexion" action="#{compteClientBean.authentication()}" update="grid" />
+                                        <p:commandButton value="Connexion" action="#{compteClientBean.authentificationCammande()}" update="grid" />
                                     </h:form>
 
                                 </f:view>
@@ -74,7 +73,7 @@
                                                 
                                                 <h:outputLabel value="Mot de passe *  "/>
                                                 <p:password value="#{compteClientBean.client.motDepasse}" required="true" id="password1"
-                                                            requiredMessage="veuillez saisir votre mot de passe" feedback="false"/>
+                                                            requiredMessage="veuillez saisir votre mot de passe" feedback="true"/>
                                                 <p:message for="password1" display="tooltip"/>
 
                                                 <h:outputLabel value="Adresse 1 *  "/>
@@ -103,22 +102,76 @@
                                             <h:messages styleClass="errorMessage" globalOnly="true"  style="color: red"/>
                                             <br/>
                                             <br/>
-                                            <p:commandButton value="Créer un compte" action="#{compteClientBean.inscrire()}" update="inscription"/>
+                                            <p:commandButton value="Créer un compte" action="#{compteClientBean.inscrireCommande()}" update="inscription"/>
                                         </p:panel>
                                      </h:form>
                                  </f:view>
                             </h:panelGroup>
-
-
-                         <h1>Les jeux qui nous excitent !</h1>
-                         <marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
-
-                        </h:panelGroup>
                     </c:when>
                     <c:otherwise>
-                        <ui:include src="compteClient1.xhtml" />
+                        <h:form>
+                            <p:dataTable var="modeLivraison" value="#{panierBean.listeModeLivraison()}" editable="true">
+
+                                <p:column id="modelHeader" headerText="Mode de livraison">
+                                    <h:outputText value="#{modeLivraison.modeLivraison}" style="width: 30%" />
+                                </p:column>
+
+                                <p:column headerText="Date">
+                                    <h:outputText value="Au plus tard dans #{modeLivraison.nbJour}" />
+                                </p:column>
+
+                                <p:column headerText="Prix">
+                                    <h:outputText value="#{modeLivraison.prix}" />
+                                </p:column>
+
+                                <p:column headerText="Choix">
+                                    <p:selectBooleanCheckbox value="" />
+                                </p:column>
+
+                            </p:dataTable>
+                            <br/>
+                            
+                            <h:panelGroup layout="block" id="authentification4">
+                                <f:view>
+                                    <h:form id="inscription">
+                                        <p:panel header="Confirmation adresse de Livraison" style="padding: 0px">
+                                            <h:panelGrid columns="3" >
+                                                <h:outputLabel value="Adresse 1 *  "/>
+                                                <p:inputText value="#{compteClientBean.adresseLivraison.rue1}" required="true" id="adr1"
+                                                             requiredMessage="veuillez saisir votre nom" size="75"/> 
+                                                <p:message for="adr1" display="tooltip"/>
+
+                                                <h:outputLabel value="Adresse 2 *  "/>
+                                                <p:inputText value="#{compteClientBean.adresseLivraison.rue2}" required="true" id="adr2"
+                                                             requiredMessage="veuillez saisir votre adresse" size="75"/>
+                                                <p:message for="adr2" display="tooltip"/>
+
+                                                <h:outputLabel value="Code postale *  "/>
+                                                <p:inputText value="#{compteClientBean.adresseLivraison.codePostale}" required="true" id="codePostale"
+                                                             requiredMessage="veuillez saisir votre code postale" size="75"/>
+                                                <p:message for="codePostale" display="tooltip"/>
+
+                                                <h:outputLabel value="Ville *  "/>
+                                                <p:inputText value="#{compteClientBean.adresseLivraison.ville}"  required="true" id="ville"
+                                                             requiredMessage="veuillez saisir votre ville" size="75"/>
+                                                <p:message for="ville" display="tooltip"/>
+
+                                            </h:panelGrid>
+                                           </p:panel>
+                                     </h:form>
+                                 </f:view>
+                            </h:panelGroup>
+                        </h:form> 
+                        <br/>
+                        <h:form>
+                            <h:commandButton action="#{compteClientBean.commandeEtape2()}" value="Accéder au paiement" class="retour" style="margin-left: 83%"></h:commandButton>     
+                        </h:form>
                     </c:otherwise>
                 </c:choose>
+                <h1>Les jeux qui nous excitent !</h1>
+                <marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
+                </h:panelGroup>
+                
                 <ui:include src="footer.xhtml"/>
                 
             </ui:define>

@@ -6,7 +6,9 @@ package sessionBean.stateless.catalogue;
 
 import entityBean.Adresse;
 import entityBean.Categorie;
+import entityBean.Commande;
 import entityBean.Fournisseur;
+import entityBean.ModeLivraison;
 import entityBean.Produit;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -37,18 +39,31 @@ public class CatalogueBean implements CatalogueBeanLocal, CatalogueBeanRemote {
     @Override
     public List<Produit> search(String critereSearch) {
         StringBuilder query = new StringBuilder(
-                "SELECT p FROM Produit p WHERE p.nomProduit LIKE :critereSearch"
-                +" OR p.categorie.genre LIKE :critereSearch "
-                + "OR p.categorie.nomCategorie LIKE :critereSearch");
+                "SELECT p FROM Produit p WHERE p.nomProduit LIKE '%"+critereSearch+"%'"
+                + " OR p.categorie.genre LIKE '%"+critereSearch+"%' "
+                + "OR p.categorie.plateforme LIKE '%"+critereSearch+"%'");
         Query searchQuery;
         searchQuery = em.createQuery(query.toString());
-        searchQuery.setParameter("critereSearch", critereSearch);
         if (searchQuery.getResultList() != null)
             return (List<Produit>)searchQuery.getResultList();
         else
             return null;
     }
 
+    @Override
+    public List<Produit> searchByCategorie(String categorie) {
+        StringBuilder query = new StringBuilder(
+                "SELECT p FROM Produit p WHERE p.categorie.plateforme LIKE :critereSearch");
+        Query searchQuery;
+        searchQuery = em.createQuery(query.toString());
+        searchQuery.setParameter("critereSearch", categorie);
+        if (searchQuery.getResultList() != null)
+            return (List<Produit>)searchQuery.getResultList();
+        else
+            return null;
+    }
+
+    
     @Override
     public Categorie createCategorie(Categorie cat) {
         List<Categorie> listCategorie;
@@ -177,6 +192,50 @@ public class CatalogueBean implements CatalogueBeanLocal, CatalogueBeanRemote {
         pro.setDescription(produit.getDescription());
         pro.setNomProduit(produit.getNomProduit());
         return pro;
+    }
+
+    @Override
+    public ModeLivraison createModeLivraison(ModeLivraison ml) {
+        if (ml != null){
+            em.persist(ml);
+            return ml;
+        }
+        return null;
+    }
+
+    @Override
+    public ModeLivraison updateModeLivraison(int idModeLivraison, ModeLivraison ml) {
+        ModeLivraison m = em.find(ModeLivraison.class, idModeLivraison);
+        m.setModeLivraison(ml.getModeLivraison());
+        m.setNbJour(ml.getNbJour());
+        m.setPrix(ml.getPrix());
+        return m;
+    }
+
+    @Override
+    public void deleteModeLivraison(int idModeLivraison) {
+        ModeLivraison ml = em.find(ModeLivraison.class, idModeLivraison);
+        em.remove(ml);
+    }
+
+    @Override
+    public List<ModeLivraison> findAllModeLivraison() {
+        return em.createNamedQuery("ModeLivraison.findAll").getResultList();
+    }
+
+    @Override
+    public List<Commande> getListCommande(int idClient) {
+        Query request =  em.createNamedQuery("Commande.getClientCommandes");
+        request.setParameter("idClient", idClient);
+        return request.getResultList();
+    }
+
+    @Override
+    public List getListCommandeEncours(int idClient) {
+        Query request =  em.createNamedQuery("Commande.getClientCommandes");
+        request.setParameter("idClient", idClient);
+        request.setParameter("etatCommande", "en cours");
+        return request.getResultList();
     }
 
 }

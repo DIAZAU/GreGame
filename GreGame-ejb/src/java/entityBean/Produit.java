@@ -25,9 +25,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Produit.findAll", query = "SELECT p FROM Produit p"),
-    @NamedQuery(name = "Produit.findByIdProduit", query = "SELECT p FROM Produit p WHERE p.idProduit = :idProduit"),
+    @NamedQuery(name = "Produit.findByIdProduit", query = "SELECT p FROM Produit p WHERE p.idProduit LIKE :idProduit"),
     @NamedQuery(name = "Produit.findByNom", query = "SELECT p FROM Produit p WHERE p.nomProduit LIKE :nomProduit"),
-    @NamedQuery(name = "Produit.findByLangue", query = "SELECT p FROM Produit p WHERE p.langueVoix = :langue")})
+    @NamedQuery(name = "Produit.findByLangue", query = "SELECT p FROM Produit p WHERE p.langueVoix LIKE :langue")})
 public class Produit implements Serializable {
 	private int idProduit;
 	private String nomProduit;

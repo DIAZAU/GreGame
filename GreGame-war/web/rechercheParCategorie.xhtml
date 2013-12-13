@@ -13,7 +13,7 @@
              <ui:include src="header.xhtml"/>
              <h:panelGroup layout="block" id="authentification">
                  <h:form id="form">
-                     <p:dataGrid var="produit" value="#{compteClientBean.resultatRecherche}" columns="3"
+                     <p:dataGrid var="produit" value="#{catalogueBean.resultatRecherche}" columns="3"
                                 rows="12" paginator="true"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                 rowsPerPageTemplate="9,12,15" emptyMessage="Pas de produit pour ce catégorie">

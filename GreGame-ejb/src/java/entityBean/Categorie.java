@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 public class Categorie implements Serializable {
     private int idCategorie;
     private String genre;
-    private String nomCategorie;
+    private String plateforme;
 
     public Categorie() {
         super();
@@ -32,7 +32,7 @@ public class Categorie implements Serializable {
     public Categorie (int id, String genre, String nom){
         this.genre = genre;
         this.idCategorie = id;
-        this.nomCategorie = nom;
+        this.plateforme = nom;
     }
 
     @Id
@@ -53,17 +53,17 @@ public class Categorie implements Serializable {
     }
 
     /**
-     * @return the nomCategorie
+     * @return the plateforme
      */
-    public String getNomCategorie() {
-        return nomCategorie;
+    public String getPlateforme() {
+        return plateforme;
     }
 
     /**
-     * @param nomCategorie the nomCategorie to set
+     * @param plateforme the plateforme to set
      */
-    public void setNomCategorie(String nomCategorie) {
-        this.nomCategorie = nomCategorie;
+    public void setPlateforme(String plateforme) {
+        this.plateforme = plateforme;
     }
 
 

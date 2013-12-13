@@ -11,24 +11,29 @@
              <ui:define name="frame">
                 <ui:include src="header.xhtml"/>
                 <h:panelGroup layout="block" id="authentification">
-                <h3>Votre menu</h3> 
-                <h:form>
-                <p:menu>  
-                    <p:submenu label="Mes commandes">  
-                        <p:menuitem value="Commandes en cours" actionListener="#" />  
-                        <p:menuitem value="Historique" actionListener="#" />  
-                    </p:submenu>  
-                    <p:submenu label="Mes informations">  
-                        <p:menuitem value="Mon compte" actionListener="#"  />  
-                        <p:menuitem value="Mes adresses" actionListener="#"  />  
-                        <p:menuitem value="Mes avis" actionListener="#"  />  
-                    </p:submenu>  
-                    <p:menuitem value="Deconnection"/>  
-                  
-                </p:menu>
-                    <br/>
-                    <h:graphicImage  value="/resources/images/car.png" width="170" />
-                </h:form> 
+                    <h:panelGroup layout="block" id="menuClient">
+                            <h3>Votre menu</h3> 
+                            <h:form>
+                            <p:menu>  
+                                <p:submenu label="Mes commandes">  
+                                    <p:menuitem value="Commandes en cours" actionListener="#" />  
+                                    <p:menuitem value="Historique" actionListener="#" />  
+                                </p:submenu>  
+                                <p:submenu label="Mes informations">  
+                                    <p:menuitem value="Mon compte" actionListener="#"  />  
+                                    <p:menuitem value="Mes adresses" actionListener="#"  />  
+                                    <p:menuitem value="Mes avis" actionListener="#"  />  
+                                </p:submenu>  
+                                <p:menuitem value="Deconnection" action="#{compteClientBean.deconnection()}"/>  
+
+                            </p:menu>
+                                <br/>
+                                <h:graphicImage  value="/resources/images/car.png" width="170" />
+                            </h:form> 
+                    </h:panelGroup>   
+                    <h:panelGroup layout="block" id="contentClient">
+                        denvdsfùg
+                    </h:panelGroup>
                 <br/>
                 <br/>
                 <br/>

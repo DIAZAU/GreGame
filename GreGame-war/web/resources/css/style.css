@@ -466,7 +466,7 @@ ul.list-box > li{
 	margin-top:10px;
 	border-top:solid 1px #dbdbdb;
 }
-.list-box-container a.more{ margin-left:0px;}
+
 .list-box-content{ margin:0px 0px; }
 .list-box-container .more{ margin-left:25px;}
 .list-box-content ul{margin:0px auto;  padding:0; list-style-type:none;}
@@ -601,11 +601,33 @@ ul.tweet_list li{ padding:10px 0px 10px 0px!important; background:url("../images
 #authentification2{
     border-top: #666666;
     margin-left: 450px;
-    width:450px; 
-    
+    width:450px;  
 }
+.ajouterPanier{
+    color: #ffffff;
+    display: inline-block;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 3px;
+    background: #949494;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 
-
+}
+.retour{
+    color: #ffffff;
+    display: inline-block;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 3px;
+    background: #949494;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
 
 /* FOOTER */
 #footer-copyright{

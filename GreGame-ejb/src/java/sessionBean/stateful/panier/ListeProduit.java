@@ -1,15 +1,16 @@
 package sessionBean.stateful.panier;
 
 import entityBean.Produit;
+import java.io.Serializable;
 
 /**
  *
  * @author LABED
  */
-class ListeProduit {
+public class ListeProduit implements Serializable{
     
     private Produit produit;
-    private Integer quantite;
+    private int quantite;
 
     /**
      * constructeur PanierProduit

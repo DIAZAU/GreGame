@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body class="nojs">
+        <h:panelGroup layout="block" id="outer-frame">
+             <h:panelGroup layout="block" id="frame">         
+             <ui:composition template="template.xhtml">
+             <ui:define name="frame">
+                <ui:include src="header.xhtml"/>
+                <h:panelGroup layout="block" id="authentification">
+                    <h:panelGroup layout="block" id="authentification3">
+                                <f:view>
+                                    <h:form>
+                                        <p:panel header="Paiement sécurisé" style="padding: 0px">
+                                            <br/>
+                                         
+                                            <h:panelGrid columns="3" >
+
+                                                <h:outputLabel value="Titulaire de la carte * "/>
+                                                <p:inputText required="true" requiredMessage="Titulaire vide" id="titulaire"/>
+                                                <p:message for="titulaire"  />
+
+                                                <h:outputLabel value="Numéro de la carte *  "/>
+                                                <p:inputText  required="true" requiredMessage="Numéro de carte vide" id="numeroCarte"/>
+                                                <p:message for="numeroCarte"  />
+
+                                                <h:outputLabel value="Date d'expiration *  "/>
+                                                <p:inputText  required="true" requiredMessage="Date d'expiration non vide" id="date"/>
+                                                <p:message for="date"/>
+
+                                                <h:outputLabel value="Cryptogramme *  "/>
+                                                <p:inputText required="true" requiredMessage="Cryptogramme vide" id="crypto"/>
+                                                <p:message for="crypto"  />
+                                            </h:panelGrid>
+                                            <br/>
+                                            <br/>
+                                            <p:commandButton value="Confirmer" action="#{panierBean.validerPanier()}"/>
+                                        </p:panel>
+                                     </h:form>
+                                 </f:view>
+                            </h:panelGroup>
+                </h:panelGroup>   
+                <ui:include src="footer.xhtml"/>
+                
+            </ui:define>
+            </ui:composition>
+            </h:panelGroup ><!-- end #frame -->
+        </h:panelGroup ><!-- end #outer-frame -->	
+    </h:body>
+</html>
+
