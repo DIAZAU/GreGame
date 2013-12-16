@@ -6,7 +6,7 @@ package ManagedBean;
 
 import entityBean.Adresse;
 import entityBean.Client;
-import entityBean.Produit;
+import entityBean.Commande;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.ValidationException;
-import sessionBean.stateless.catalogue.CatalogueBeanLocal;
 import sessionBean.stateless.client.ClientBeanLocal;
+import sessionBean.stateless.commande.CommandeBeanLocal;
 
 /**
  *
@@ -26,34 +26,26 @@ import sessionBean.stateless.client.ClientBeanLocal;
  */
 public class CompteClientBean implements Serializable{
     
-
-    private String key = "recherche";
     private boolean logged = false;
-    private List<Produit> resultatRecherche;
     private Client client;
     private Adresse adresse;
     private Adresse adresseLivraison;
     @EJB
-    private  ClientBeanLocal clientBean;
+    private ClientBeanLocal clientBean;
     @EJB
-    private  CatalogueBeanLocal catalogueBean;
+    private CommandeBeanLocal commandeBean;
+    private List<Commande> listeCommande = new ArrayList<Commande>();
+    private List<Commande> historiqueCommande = new ArrayList<Commande>();
     private final HttpSession session;
     
     public CompteClientBean() {
         client = new Client();
         adresse = new Adresse();
+        
         adresseLivraison = new Adresse();
-        resultatRecherche = new ArrayList<Produit>();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) ec.getRequest();
         session = request.getSession(true);
-    }
-    
-    public String recherche(){
-        if (catalogueBean.search(key) != null)
-            setResultatRecherche(catalogueBean.search(key));
-        setKey("recherche");
-        return "recherche.success";
     }
     
      public String supprimerCompte(){
@@ -166,7 +158,7 @@ public class CompteClientBean implements Serializable{
         setLogged(false);
         return "acceuil";
     }
-
+    
     /**
      * @return the client
      */
@@ -196,34 +188,6 @@ public class CompteClientBean implements Serializable{
     }
 
     /**
-     * @return the key
-     */
-    public String getKey() {
-        return key;
-    }
-
-    /**
-     * @param key the key to set
-     */
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    /**
-     * @return the resultatRecherche
-     */
-    public List<Produit> getResultatRecherche() {
-        return resultatRecherche;
-    }
-
-    /**
-     * @param resultatRecherche the resultatRecherche to set
-     */
-    public void setResultatRecherche(List<Produit> resultatRecherche) {
-        this.resultatRecherche = resultatRecherche;
-    }
-
-    /**
      * @return the logged
      */
     public boolean isLogged() {
@@ -249,6 +213,50 @@ public class CompteClientBean implements Serializable{
      */
     public void setAdresseLivraison(Adresse adresseLivraison) {
         this.adresseLivraison = adresseLivraison;
+    }
+
+    /**
+     * @return the listeCommande
+     */
+    public List<Commande> getListeCommande() {
+        setListeCommande(commandeBean.getListCommandeEncours(client.getIdClient()));
+        return listeCommande;
+    }
+
+    /**
+     * @param listeCommande the listeCommande to set
+     */
+    public void setListeCommande(List<Commande> listeCommande) {
+        this.listeCommande = listeCommande;
+    }
+
+    /**
+     * @return the historiqueCommande
+     */
+    public List<Commande> getHistoriqueCommande() {
+        setHistoriqueCommande(commandeBean.getListCommande(client.getIdClient()));
+        return historiqueCommande;
+    }
+
+    /**
+     * @param historiqueCommande the historiqueCommande to set
+     */
+    public void setHistoriqueCommande(List<Commande> historiqueCommande) {
+        this.historiqueCommande = historiqueCommande;
+    }
+
+    /**
+     * @return the commandeBean
+     */
+    public CommandeBeanLocal getCommandeBean() {
+        return commandeBean;
+    }
+
+    /**
+     * @param commandeBean the commandeBean to set
+     */
+    public void setCommandeBean(CommandeBeanLocal commandeBean) {
+        this.commandeBean = commandeBean;
     }
 
 }

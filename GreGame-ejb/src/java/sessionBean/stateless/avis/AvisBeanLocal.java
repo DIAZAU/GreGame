@@ -16,8 +16,7 @@ import javax.ejb.Local;
 public interface AvisBeanLocal {
  public void createAvis(Avis avis);
  public void deleteAvis(int idAvis);
- public Avis searchAvis(int idAvis);
- public List<Avis>  searchAllAvis();
+ public List<Avis>  searchAllAvis(int idProduit);
  public void updateAvis(int idAvis, String massage);
 }
 

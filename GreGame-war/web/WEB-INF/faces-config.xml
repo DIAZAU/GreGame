@@ -33,6 +33,12 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     
+    <managed-bean>
+        <managed-bean-name>avisBean</managed-bean-name>
+        <managed-bean-class>ManagedBean.AvisBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
     
    <!-- =========== REGLE DE NAVIGATION ================================== -->  
        
@@ -49,7 +55,7 @@
         <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/compteClient.xhtml</to-view-id>
+            <to-view-id>/connexion.xhtml</to-view-id>
             <redirect></redirect>
         </navigation-case> 
     </navigation-rule> 
@@ -134,5 +140,5 @@
             <redirect></redirect>
         </navigation-case> 
     </navigation-rule>
-    
+
 </faces-config>

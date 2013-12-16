@@ -598,6 +598,18 @@ ul.tweet_list li{ padding:10px 0px 10px 0px!important; background:url("../images
     width:400px; 
     position: absolute;
 }
+#contentClient{
+    position: relative;
+    margin-left: 250px; 
+}
+#menuClient{
+    position: absolute;
+}
+#compteClient{
+    position: relative;
+    min-height: 450px;
+}
+
 #authentification2{
     border-top: #666666;
     margin-left: 450px;

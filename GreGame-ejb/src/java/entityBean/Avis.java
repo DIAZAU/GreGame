@@ -19,8 +19,10 @@ import javax.validation.constraints.NotNull;
  * @author FALL
  */
 @Entity
-@NamedQueries(
-        @NamedQuery(name="Avis.findAll", query="select a from Avis a"))
+@NamedQueries({
+        @NamedQuery(name="Avis.findAll", query="select a from Avis a"),
+        @NamedQuery(name="Avis.findAllByProduit", query="select a from Avis a where a.produit.idProduit = :produit"),
+        @NamedQuery(name="Avis.findAllByClient", query="select a from Avis a where a.client = :client")})
 public class Avis implements Serializable {
 	
     private int idAvis;

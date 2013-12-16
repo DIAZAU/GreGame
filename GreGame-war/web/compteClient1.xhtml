@@ -1,27 +1,61 @@
-<h:panelGroup layout="block" id="authentification"
-              xmlns:h="http://xmlns.jcp.org/jsf/html"
-              xmlns:p="http://primefaces.org/ui">
-<h3>Votre menu</h3> 
-<h:form>
-<p:menu>  
-    <p:submenu label="Mes commandes">  
-        <p:menuitem value="Commandes en cours" actionListener="#" />  
-        <p:menuitem value="Historique" actionListener="#" />  
-    </p:submenu>  
-    <p:submenu label="Mes informations">  
-        <p:menuitem value="Mon compte" actionListener="#"  />  
-        <p:menuitem value="Mes adresses" actionListener="#"  />  
-        <p:menuitem value="Mes avis" actionListener="#"  />  
-    </p:submenu>  
-    <p:menuitem value="Deconnection"/>  
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:panelGroup layout="block" id="authentification">
+    <h:panelGroup layout="block" id="compteClient">
+    <h:panelGroup layout="block" id="menuClient">
+        <h3>Votre menu</h3> 
+        <h:form>
+        <p:menu>  
+            <p:submenu label="Mes commandes">  
+                <p:menuitem value="Commandes en cours" actionListener="#" />  
+                <p:menuitem value="Historique" actionListener="#" />  
+            </p:submenu>  
+            <p:submenu label="Mes informations">  
+                <p:menuitem value="Mon compte" actionListener="#"  />  
+                <p:menuitem value="Mes adresses" actionListener="#"  />  
+                <p:menuitem value="Mes avis" actionListener="#"  />  
+            </p:submenu>  
+            <p:menuitem value="Deconnection" action="#{compteClientBean.deconnection()}"/>  
 
-</p:menu>
-    <br/>
-    <h:graphicImage  value="/resources/images/car.png" width="170" />
-</h:form> 
-<br/>
-<br/>
-<br/>
-<h1>Les jeux qui nous excitent !</h1>
-<marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
+        </p:menu>
+        <br/>
+        <h:graphicImage  value="/resources/images/car.png" width="170" />
+        </h:form> 
+    </h:panelGroup>   
+    <h:panelGroup layout="block" id="contentClient">
+        <h:form>
+            <ui:repeat  value="#{compteClientBean.listeCommande}" var="commande" >
+                <h:outputText value="#{commande.dateCommande}"/>
+            
+                <p:dataTable var="lc" value="#{commande.listCommande}" editable="true">
+                    <f:facet name="header">  
+                        Mes commandes en cours 
+                    </f:facet>  
+
+                    <p:column id="modelHeader" headerText="Produit(s)">
+                        <h:graphicImage value="#{lc.produit.photo}" style="width: 10%" />
+                    </p:column>
+
+                    <p:column headerText="Prix Unitaire">
+                        <h:outputText value="#{lc.produit.prixUnitaire} €" />
+                    </p:column>
+
+                    <p:column headerText="Quantité">
+                        <h:outputText value="#{lc.quantite} " />
+                    </p:column>
+                </p:dataTable>
+            </ui:repeat>
+        </h:form> 
+    </h:panelGroup>
+    </h:panelGroup>
+    <h1>Les jeux qui nous excitent !</h1>
+    <marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
+
 </h:panelGroup>
+</div>

@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NamedQueries({
     @NamedQuery(name="Commande.getClientCommandes", query=" Select a from Commande a where a.client.idClient = :idClient"),
-     @NamedQuery(name="Commande.getClientCommandesEncours", query=" Select a from Commande a where a.client.idClient = :idClient and a.etatCommande = :etatCommande"),
+    @NamedQuery(name="Commande.getClientCommandesEncours", query=" Select a from Commande a where a.client.idClient = :idClient and a.etatCommande = :etatCommande"),
     @NamedQuery(name="Commande.getAllCommandes", query=" Select a from Commande a ")})
 public class Commande implements Serializable {
 	
@@ -49,7 +50,8 @@ public class Commande implements Serializable {
             this.client = clientFK;
     }
 
-    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
+    
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<LigneCommande> getListCommande() {
             return listCommande;
     }

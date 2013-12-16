@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -22,7 +23,8 @@ public class AvisBean implements AvisBeanLocal {
 
     @Override
     public void createAvis(Avis avis) {
-        em.persist(avis);
+        if (avis != null)
+            em.persist(avis);
     }
     
 
@@ -39,14 +41,10 @@ public class AvisBean implements AvisBeanLocal {
     }   
     
     @Override
-    public List<Avis>  searchAllAvis() {
-        return em.createNamedQuery("Avis.findAll").getResultList();
+    public List<Avis>  searchAllAvis(int idProduit) {
+        Query request = em.createNamedQuery("Avis.findAllByProduit");
+        request.setParameter("produit", idProduit);
+        return request.getResultList();
     }    
 
-    @Override
-    public Avis searchAvis(int idAvis) {
-        Avis avis;
-        avis=em.find(Avis.class,idAvis);
-        return avis;
-    }
 }

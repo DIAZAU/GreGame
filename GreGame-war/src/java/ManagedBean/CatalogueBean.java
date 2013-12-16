@@ -24,7 +24,7 @@ public class CatalogueBean implements Serializable{
     @EJB
     private CatalogueBeanLocal catalogue;
     private Produit produit;
-    private String key;
+    private String key = "recherche";
     private String categorie;
     private int id;
     private List<Produit> resultatRecherche;
@@ -47,6 +47,13 @@ public class CatalogueBean implements Serializable{
         System.out.println(param);
         setResultatRecherche((List<Produit>) catalogue.searchByCategorie(getCategorie()));
         return "categorie.trouver";
+    }
+    
+    public String recherche(){
+        if (catalogue.search(key) != null)
+            setResultatRecherche(catalogue.search(key));
+        setKey("recherche");
+        return "recherche.success";
     }
 
     /**

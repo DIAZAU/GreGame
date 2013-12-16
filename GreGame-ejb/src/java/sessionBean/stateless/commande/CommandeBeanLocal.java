@@ -20,4 +20,7 @@ public interface CommandeBeanLocal {
     public List<Commande> getCommande(Client client);
     public List<Commande> getAllCommnades();
     
+    public List getListCommande(int idClient);
+    public List getListCommandeEncours(int idClient);
+    
 }

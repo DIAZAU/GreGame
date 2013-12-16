@@ -51,7 +51,7 @@ public class PanierBean implements Serializable{
     }
     
     public Double prixTotals(){
-        if (panier.isEmpty())
+        if (panier.getpanierProduits().isEmpty())
             return prixTotal;
         return panier.getTotal();
     }

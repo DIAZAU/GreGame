@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 
 /**
@@ -14,6 +16,9 @@ import javax.persistence.ManyToOne;
  * @author FALL
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name="LigneCommande.getAllLigneCommandes", query=" Select lc from LigneCommande lc"),
+    @NamedQuery(name="LigneCommande.getLigneCommandeByCommande", query=" Select lc from LigneCommande lc where lc.commande = :commande")})
 public class LigneCommande implements Serializable{
     private int id;
     private Produit produit;

@@ -41,13 +41,45 @@
                 </h:panelGrid>  
              </p:tab>  
 
-             <p:tab id="tab2" title="Avis clients">  
+             <p:tab id="tab2" title="Voir les avis">  
                 <h:panelGrid columns="2" cellpadding="10">
-                    
+                    <p:dataTable var="avis" value="#{avisBean.listAvis}" emptyMessage="Pas d'avis sur ce produit" 
+                                 style="">  
+                        <p:column headerText="Titre">  
+                            <h:outputText value="#{avis.titreAvis}"/>  
+                        </p:column>  
+
+                        <p:column headerText="Messages" style="width: 50%">  
+                            <h:outputText value="#{avis.messageAvis}"  />  
+                        </p:column>  
+
+                        <p:column headerText="Notes">  
+                            <h:outputText value="#{avis.noteAvis}" />  
+                        </p:column> 
+                    </p:dataTable>                  
                 </h:panelGrid>  
              </p:tab>  
+                 
+             <p:tab id="tab3" title="Je donne mon avis">
+                 <h:panelGrid columns="2" cellpadding="10">
+                    <h:form>
+                        <h4>Titre message</h4>
+                        <p:inputText value="#{avisBean.avis.titreAvis}" rendered="true" 
+                                     requiredMessage="veuillez le titre du message" id="titreMessage"/>
+                        <p:message for="titreMessage"/>
+                        <br/>
+                        <h4>Votre message</h4>
+                        <p:inputTextarea value="#{avisBean.avis.messageAvis}" required="true" rows="10" cols="50"
+                                         requiredMessage="veuillez votre avis" id="messageAvis"/>
+                        <p:messages for="messageAvis"/>
+                        <h:commandButton action="#{panierBean.commandeEtape1()}" value="Valider" 
+                                         class="retour" style="margin-left: 79%">
+                        </h:commandButton>     
+                    </h:form>  
+                 </h:panelGrid>
+             </p:tab>  
 
-             <p:tab id="tab3" title="Nos services">  
+             <p:tab id="tab4" title="Nos services">  
                 <h:panelGrid columns="2" cellpadding="10">  
                     
                 </h:panelGrid>  

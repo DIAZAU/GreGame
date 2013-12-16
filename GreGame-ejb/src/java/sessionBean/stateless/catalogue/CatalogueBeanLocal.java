@@ -20,8 +20,6 @@ public interface CatalogueBeanLocal {
     public Categorie findCategorie (int idCategorie);
     public List search(String critereSearch);
     public List searchByCategorie(String critereSearch);
-    public List getListCommande(int idClient);
-    public List getListCommandeEncours(int idClient);
     
     public ModeLivraison createModeLivraison(ModeLivraison ml);
     

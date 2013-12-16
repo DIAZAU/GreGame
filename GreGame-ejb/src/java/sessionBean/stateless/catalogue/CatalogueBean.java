@@ -222,20 +222,4 @@ public class CatalogueBean implements CatalogueBeanLocal, CatalogueBeanRemote {
     public List<ModeLivraison> findAllModeLivraison() {
         return em.createNamedQuery("ModeLivraison.findAll").getResultList();
     }
-
-    @Override
-    public List<Commande> getListCommande(int idClient) {
-        Query request =  em.createNamedQuery("Commande.getClientCommandes");
-        request.setParameter("idClient", idClient);
-        return request.getResultList();
-    }
-
-    @Override
-    public List getListCommandeEncours(int idClient) {
-        Query request =  em.createNamedQuery("Commande.getClientCommandes");
-        request.setParameter("idClient", idClient);
-        request.setParameter("etatCommande", "en cours");
-        return request.getResultList();
-    }
-
 }

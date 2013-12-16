@@ -94,7 +94,7 @@ public class Panier implements PanierLocal {
 
     @Override
     public Double getTotal() {
-        if (!isEmpty()) {
+        if (isEmpty()) {
             return new Double(0);
         }
         Double total = new Double(0);
