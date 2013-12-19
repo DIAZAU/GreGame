@@ -4,9 +4,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:panelGroup layout="block" id="authentification">
+    <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
     <h:panelGroup layout="block" id="compteClient">
     <h:panelGroup layout="block" id="menuClient">
         <h3>Votre menu</h3> 
@@ -25,37 +26,58 @@
 
         </p:menu>
         <br/>
-        <h:graphicImage  value="/resources/images/car.png" width="170" />
+        <h:graphicImage  value="/resources/images/car.png" width="145" />
         </h:form> 
     </h:panelGroup>   
     <h:panelGroup layout="block" id="contentClient">
-        <h:form>
-            <ui:repeat  value="#{compteClientBean.listeCommande}" var="commande" >
-                <h:outputText value="#{commande.dateCommande}"/>
-            
-                <p:dataTable var="lc" value="#{commande.listCommande}" editable="true">
-                    <f:facet name="header">  
-                        Mes commandes en cours 
-                    </f:facet>  
+        <c:choose>
+            <c:when test="#{compteClientBean.listeCommande.size() == 0}">
+                <h:graphicImage value="\resources\images\pasCommander.png"/>
+            </c:when>
+            <c:otherwise>
+                <h:form>
+                    <ui:repeat  value="#{compteClientBean.listeCommande}" var="commande" >
+                        <h:outputText value="#{commande.dateCommande}"/>
 
-                    <p:column id="modelHeader" headerText="Produit(s)">
-                        <h:graphicImage value="#{lc.produit.photo}" style="width: 10%" />
-                    </p:column>
+                        <p:dataTable var="lc" value="#{commande.listCommande}" editable="true">
+                            <f:facet name="header">  
+                                Mes commandes en cours 
+                            </f:facet>  
 
-                    <p:column headerText="Prix Unitaire">
-                        <h:outputText value="#{lc.produit.prixUnitaire} €" />
-                    </p:column>
+                            <p:column id="modelHeader" headerText="Produit(s)">
+                                <h:graphicImage value="#{lc.produit.photo}" style="width: 10%" />
+                            </p:column>
 
-                    <p:column headerText="Quantité">
-                        <h:outputText value="#{lc.quantite} " />
-                    </p:column>
-                </p:dataTable>
-            </ui:repeat>
-        </h:form> 
+                            <p:column headerText="Prix Unitaire">
+                                <h:outputText value="#{lc.produit.prixUnitaire} €" />
+                            </p:column>
+                            <p:column headerText="Quantité">
+                                <h:outputText value="#{lc.quantite} " />
+                            </p:column>
+                        </p:dataTable>
+                    </ui:repeat>
+                </h:form> 
+            </c:otherwise>
+        </c:choose>
     </h:panelGroup>
     </h:panelGroup>
+    <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
     <h1>Les jeux qui nous excitent !</h1>
-    <marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
-
+    <marquee  behavior="scroll" direction="left">
+        <img src="${request.contextPath}/resources/images/logos-par/1.png"/> 
+        <img src="${request.contextPath}/resources/images/logos-par/2.png"/> 
+        <img src="${request.contextPath}/resources/images/logos-par/3.png"/> 
+        <img src="${request.contextPath}/resources/images/logos-par/4.png"/> 
+        <img src="${request.contextPath}/resources/images/logos-par/5.png"/>
+        <img src="${request.contextPath}/resources/images/logos-par/6.png"/> 
+        <img src="${request.contextPath}/resources/images/logos-par/7.png"/> 
+        <img src="${request.contextPath}/resources/images/logos-par/8.png"/> 
+        <img src="${request.contextPath}/resources/images/logos-par/9.png"/> 
+        <img src="${request.contextPath}/resources/images/logos-par/10.png"/>
+        <img src="${request.contextPath}/resources/images/logos-par/11.png"/> 
+        <img src="${request.contextPath}/resources/images/logos-par/12.png"/> 
+        <img src="${request.contextPath}/resources/images/logos-par/13.png"/> 
+        <img src="${request.contextPath}/resources/images/logos-par/14.png"/> 
+    </marquee>
 </h:panelGroup>
 </div>

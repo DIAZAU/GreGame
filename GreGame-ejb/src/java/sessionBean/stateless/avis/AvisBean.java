@@ -23,8 +23,10 @@ public class AvisBean implements AvisBeanLocal {
 
     @Override
     public void createAvis(Avis avis) {
-        if (avis != null)
+        if (avis != null){
             em.persist(avis);
+            System.out.println("ok");
+        }
     }
     
 

@@ -13,28 +13,65 @@
              <ui:define name="frame">
                 <ui:include src="header.xhtml"/>
                 <h:panelGroup layout="block" id="authentification">
+                <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
                     <h:panelGroup layout="block" id="authentification3">
                                 <f:view>
                                     <h:form>
                                         <p:panel header="Paiement sécurisé" style="padding: 0px">
                                             <br/>
-                                         
-                                            <h:panelGrid columns="3" >
-
+                                            <h:graphicImage value="/resources/images/Visa.png" style="padding: 5px"/>
+                                            <h:graphicImage value="/resources/images/VisaElectron.png" style="padding: 5px"/>
+                                            <h:graphicImage value="/resources/images/PayPal.png" style="padding: 5px"/>
+                                            <h:graphicImage value="/resources/images/Mastercard.png" style="padding: 5px"/>
+                                            
+                                            <h:selectOneRadio id="options" value="#{panierBean.numCard}">
+                                                
+                                                <f:selectItem itemLabel="" itemValue="1" id="visa"  />
+                                                <f:selectItem itemLabel="" itemValue="2" id="visaElectron"/>
+                                                <f:selectItem itemLabel="" itemValue="3" id="paypal"/>
+                                                <f:selectItem itemLabel="" itemValue="4" id="mastercard"/>
+                                            </h:selectOneRadio>
+                                            <h:panelGrid columns="3">                                     
                                                 <h:outputLabel value="Titulaire de la carte * "/>
                                                 <p:inputText required="true" requiredMessage="Titulaire vide" id="titulaire"/>
                                                 <p:message for="titulaire"  />
 
-                                                <h:outputLabel value="Numéro de la carte *  "/>
-                                                <p:inputText  required="true" requiredMessage="Numéro de carte vide" id="numeroCarte"/>
+                                                <h:outputText value="Numéro de la carte *  "/>
+                                                <p:inputText size="20" required="true" requiredMessage="Numéro de carte vide" id="numeroCarte"/>
                                                 <p:message for="numeroCarte"  />
 
-                                                <h:outputLabel value="Date d'expiration *  "/>
-                                                <p:inputText  required="true" requiredMessage="Date d'expiration non vide" id="date"/>
-                                                <p:message for="date"/>
+                                                <h:outputText value="Date d'expiration *  "/>
+                                                <h:panelGrid  columns="2">
+                                                <h:selectOneMenu>
+                                                    <f:selectItem itemLabel="Mois" itemValue="" />
+                                                    <f:selectItem itemLabel="01" itemValue="1" />
+                                                    <f:selectItem itemLabel="02" itemValue="2" />
+                                                    <f:selectItem itemLabel="03" itemValue="3" />
+                                                    <f:selectItem itemLabel="04" itemValue="4" />
+                                                    <f:selectItem itemLabel="05" itemValue="5" />
+                                                    <f:selectItem itemLabel="06" itemValue="6" />
+                                                    <f:selectItem itemLabel="07" itemValue="7" />
+                                                    <f:selectItem itemLabel="08" itemValue="8" />
+                                                    <f:selectItem itemLabel="09" itemValue="9" />
+                                                    <f:selectItem itemLabel="10" itemValue="10" />
+                                                    <f:selectItem itemLabel="11" itemValue="11" />
+                                                    <f:selectItem itemLabel="12" itemValue="12" />
+                                                </h:selectOneMenu>
+                                                
+                                                <h:selectOneMenu>
+                                                    <f:selectItem itemLabel="Année" itemValue="" />
+                                                    <f:selectItem itemLabel="2013" itemValue="1" />
+                                                    <f:selectItem itemLabel="2014" itemValue="2" />
+                                                    <f:selectItem itemLabel="2015" itemValue="3" />
+                                                    <f:selectItem itemLabel="2016" itemValue="1" />
+                                                    <f:selectItem itemLabel="2017" itemValue="2" />
+                                                    <f:selectItem itemLabel="2018" itemValue="3" />
+                                                </h:selectOneMenu>
+                                                </h:panelGrid>
+                                                <br/>
 
-                                                <h:outputLabel value="Cryptogramme *  "/>
-                                                <p:inputText required="true" requiredMessage="Cryptogramme vide" id="crypto"/>
+                                                <h:outputLabel value="Cryptogramme * "/>
+                                                <p:inputText size="3" required="true" requiredMessage="Cryptogramme vide" id="crypto"/>
                                                 <p:message for="crypto"  />
                                             </h:panelGrid>
                                             <br/>
@@ -44,6 +81,24 @@
                                      </h:form>
                                  </f:view>
                             </h:panelGroup>
+                <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
+                <h1>Les jeux qui nous excitent !</h1>
+                <marquee  behavior="scroll" direction="left">
+                    <img src="${request.contextPath}/resources/images/logos-par/1.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/2.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/3.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/4.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/5.png"/>
+                    <img src="${request.contextPath}/resources/images/logos-par/6.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/7.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/8.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/9.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/10.png"/>
+                    <img src="${request.contextPath}/resources/images/logos-par/11.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/12.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/13.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/14.png"/> 
+                </marquee>
                 </h:panelGroup>   
                 <ui:include src="footer.xhtml"/>
                 

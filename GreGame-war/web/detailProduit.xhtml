@@ -3,96 +3,129 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body class="nojs">
         <h:panelGroup layout="block" id="outer-frame">
         <h:panelGroup layout="block" id="frame">         
         <ui:composition template="template.xhtml">
-             <ui:define name="frame">
-             <ui:include src="header.xhtml"/>
-             <h:panelGroup layout="block" id="authentification">
+            <ui:define name="frame">
+            <ui:include src="header.xhtml"/>
+            <h:panelGroup layout="block" id="authentification">
+            <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
                  <h:panelGrid columns="2" cellpadding="10">
-                    <p:graphicImage id="tab1Img" value="#{catalogueBean.produit.photo}" />  
-                    <h:outputText id="tab1Text"  value="#{catalogueBean.produit.description}" style="background-size: 30px"/>  
-                 </h:panelGrid>
-             
-             <p:tabView id="tabView">  
-  
-             <p:tab id="tab1" title="Description">  
-                <h:panelGrid columns="2" cellpadding="10">  
-                    <p:dataTable var="produit" value="#{catalogueBean.produit}">  
-                    <p:column headerText="Genre">  
-                        <h:outputText value="#{produit.categorie.genre}"/>  
-                    </p:column>  
-
-                    <p:column headerText="Langue voix">  
-                        <h:outputText value="#{produit.langueVoix}" />  
-                    </p:column>  
-
-                    <p:column headerText="Langue ecran">  
-                        <h:outputText value="#{produit.langueEcran}" />  
-                    </p:column> 
+                    <p:graphicImage id="tab1Img" value="#{catalogueBean.produit.photo}" /> 
+                    <h:panelGrid columns="1">
+                        <h:panelGroup layout="block" class="description">
+                            <h:outputText value="#{catalogueBean.produit.description}" class="texte"/>
+                        </h:panelGroup>
                      
-                     <p:column headerText="Plateforme">  
-                        <h:outputText value="#{produit.categorie.plateforme}" />  
-                    </p:column> 
-                    </p:dataTable>   
-                </h:panelGrid>  
-             </p:tab>  
-
-             <p:tab id="tab2" title="Voir les avis">  
-                <h:panelGrid columns="2" cellpadding="10">
-                    <p:dataTable var="avis" value="#{avisBean.listAvis}" emptyMessage="Pas d'avis sur ce produit" 
-                                 style="">  
-                        <p:column headerText="Titre">  
-                            <h:outputText value="#{avis.titreAvis}"/>  
-                        </p:column>  
-
-                        <p:column headerText="Messages" style="width: 50%">  
-                            <h:outputText value="#{avis.messageAvis}"  />  
-                        </p:column>  
-
-                        <p:column headerText="Notes">  
-                            <h:outputText value="#{avis.noteAvis}" />  
-                        </p:column> 
-                    </p:dataTable>                  
-                </h:panelGrid>  
-             </p:tab>  
-                 
-             <p:tab id="tab3" title="Je donne mon avis">
-                 <h:panelGrid columns="2" cellpadding="10">
-                    <h:form>
-                        <h4>Titre message</h4>
-                        <p:inputText value="#{avisBean.avis.titreAvis}" rendered="true" 
-                                     requiredMessage="veuillez le titre du message" id="titreMessage"/>
-                        <p:message for="titreMessage"/>
-                        <br/>
-                        <h4>Votre message</h4>
-                        <p:inputTextarea value="#{avisBean.avis.messageAvis}" required="true" rows="10" cols="50"
-                                         requiredMessage="veuillez votre avis" id="messageAvis"/>
-                        <p:messages for="messageAvis"/>
-                        <h:commandButton action="#{panierBean.commandeEtape1()}" value="Valider" 
-                                         class="retour" style="margin-left: 79%">
-                        </h:commandButton>     
-                    </h:form>  
+                        <h:form>
+                            <h:commandLink action="#{panierBean.ajouteProduit()}" title="Ajouter le produit dans votre panier">
+                                <h:graphicImage value="\resources\images\ajouterAuPanier.png"/>
+                                <f:param name="idProduit" value="#{catalogueBean.produit.idProduit}" />
+                            </h:commandLink>      
+                        </h:form>
+                    </h:panelGrid>
+            
+                    <h:panelGroup layout="block" class="prix">
+                        <h:panelGroup layout="block" class="valeur">
+                            <h:outputText value="#{catalogueBean.produit.prixUnitaire}" />  
+                        </h:panelGroup>
+                     </h:panelGroup >
                  </h:panelGrid>
-             </p:tab>  
+                 <h:form id="form">
+                    <p:tabView id="tabView">  
+                    <p:tab id="tab1" title="Description">  
+                       <h:panelGrid columns="2" cellpadding="10">  
+                           <p:dataTable var="produit" value="#{catalogueBean.produit}">  
+                           <p:column headerText="Genre">  
+                               <h:outputText value="#{produit.categorie.genre}"/>  
+                           </p:column>  
 
-             <p:tab id="tab4" title="Nos services">  
-                <h:panelGrid columns="2" cellpadding="10">  
-                    
-                </h:panelGrid>  
-             </p:tab>  
+                           <p:column headerText="Langue voix">  
+                               <h:outputText value="#{produit.langueVoix}" />  
+                           </p:column>  
 
-             </p:tabView>
-             <br/> <br/>
-             <h:outputLink value="JavaScript:history.go(-1);" class="retour">
-                    <h:outputText value="RETOUR"/>
-             </h:outputLink>
-             <br/> <br/>
+                           <p:column headerText="Langue ecran">  
+                               <h:outputText value="#{produit.langueEcran}" />  
+                           </p:column> 
+
+                            <p:column headerText="Plateforme">  
+                               <h:outputText value="#{produit.categorie.plateforme}" />  
+                           </p:column> 
+                           </p:dataTable>   
+                       </h:panelGrid>  
+                    </p:tab>  
+
+                    <p:tab id="tab2" title="Voir les avis">  
+                       <h:panelGrid columns="2" cellpadding="5">
+                           <p:dataTable var="avis" value="#{avisBean.listAvis}" emptyMessage="Pas d'avis sur ce produit" 
+                                        style="">  
+                               <p:column headerText="Titre">  
+                                   <h:outputText value="#{avis.titreAvis}"/>  
+                               </p:column>  
+                               <p:column headerText="Messages" style="width: 50%">  
+                                   <h:outputText style="width: 100px;white-space: normal" value="#{avis.messageAvis}"   />  
+                               </p:column>  
+                               <p:column headerText="Notes" style="width: 150px">  
+                                   <p:rating value="#{avis.noteAvis}" /> 
+                               </p:column> 
+                           </p:dataTable>                  
+                       </h:panelGrid>  
+                    </p:tab>  
+                    <p:tab id="tab3" title="Je donne mon avis">
+                        <h:panelGrid columns="2" cellpadding="10">
+                           <h:form>
+                               <h4>Titre message</h4>
+                               <p:inputText value="#{avisBean.avis.titreAvis}" rendered="true" required="true"
+                                            requiredMessage="veuillez le titre du message" id="titreMessage"/>
+                               <br/>
+                               <p:message for="titreMessage"/>
+                               <br/>
+                               <h4>Votre message</h4>
+                               <p:inputTextarea value="#{avisBean.avis.messageAvis}" required="true" rows="10" cols="50"
+                                                requiredMessage="veuillez votre avis" id="messageAvis"/>
+                               <p:message for="messageAvis"/>
+                               <h:commandButton action="#{avisBean.creerAvis()}" value="Valider" 
+                                                class="retour" style="margin-left: 79%">
+                               </h:commandButton>  
+                               <h:messages styleClass="errorMessage" showDetail="true" style="color: red" globalOnly="true"/>
+                           </h:form>  
+                        </h:panelGrid>
+                    </p:tab>  
+
+                    <p:tab id="tab4" title="Nos services">  
+                       <h:panelGrid columns="2" cellpadding="10">  
+
+                       </h:panelGrid>  
+                    </p:tab>  
+
+                 </p:tabView>
+             </h:form>
+                 <h:form>
+                     <br/> <br/>
+                     <p:commandButton value="RETOUR"  onclick="JavaScript:history.go(-1);" />
+                 </h:form>
+             
+             <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
              <h1>Les jeux qui nous excitent !</h1>
-             <marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
+                <marquee  behavior="scroll" direction="left">
+                    <img src="${request.contextPath}/resources/images/logos-par/1.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/2.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/3.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/4.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/5.png"/>
+                    <img src="${request.contextPath}/resources/images/logos-par/6.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/7.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/8.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/9.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/10.png"/>
+                    <img src="${request.contextPath}/resources/images/logos-par/11.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/12.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/13.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/14.png"/> 
+                </marquee>
 
              </h:panelGroup>
                 

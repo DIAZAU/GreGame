@@ -12,6 +12,7 @@
              <ui:define name="frame">
              <ui:include src="header.xhtml"/>
              <h:panelGroup layout="block" id="authentification">
+             <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
                  <h:form id="form">
                      <p:dataGrid var="produit" value="#{catalogueBean.resultatRecherche}" columns="3"
                                 rows="12" paginator="true"
@@ -22,21 +23,40 @@
                             <h:panelGrid columns="1" style="width: 100%" >
                                 <h:commandLink action="#{catalogueBean.detailProduit()}">
                                     <f:param name="id" value="#{produit.idProduit}" />
-                                    <h:graphicImage value="#{produit.photo}" title="Plus de details sur le produit"/>
+                                    <h:graphicImage value="#{produit.photo}" title="Plus de details sur le produit" style="width: 50%; height: 40%"/>
                                 </h:commandLink>
                                 <h:outputText value="#{produit.prixUnitaire} €" style="color: red; text-decoration-style: double"></h:outputText>
-                                <h:commandLink class="ajouterPanier" action="#{panierBean.ajouteProduit()}" value="Ajouter au panier" title="Ajouter le produit dans votre panier">
+                                <h:commandLink actionListener="#{panierBean.ajouteProduit()}" title="Ajouter le produit dans votre panier">
+                                    <h:graphicImage value="\resources\images\ajouterAuPanier.png"/>
                                     <f:param name="idProduit" value="#{produit.idProduit}" />
-                                </h:commandLink>                                  
+                                </h:commandLink>                                    
                             </h:panelGrid>
                         </p:panel>
                         </p:dataGrid>
-                </h:form>
-             <h:outputLink value="JavaScript:history.go(-1);" class="retour">
-                <h:outputText value="RETOUR"/>
-             </h:outputLink>
+                 </h:form>
+                 <h:form>
+                     <br/> <br/>
+                     <p:commandButton value="RETOUR"  onclick="JavaScript:history.go(-1);" />
+                 </h:form>
+                 <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
+                 <h1>Les jeux qui nous excitent !</h1>
+                <marquee  behavior="scroll" direction="left">
+                    <img src="${request.contextPath}/resources/images/logos-par/1.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/2.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/3.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/4.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/5.png"/>
+                    <img src="${request.contextPath}/resources/images/logos-par/6.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/7.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/8.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/9.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/10.png"/>
+                    <img src="${request.contextPath}/resources/images/logos-par/11.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/12.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/13.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/14.png"/> 
+                </marquee>
              </h:panelGroup>
-                
              <ui:include src="footer.xhtml"/>
         </ui:define>
         </ui:composition>

@@ -31,14 +31,15 @@ public class CatalogueBean implements Serializable{
     
     public CatalogueBean() {
         produit = new Produit();
-        resultatRecherche = new ArrayList<Produit>();
+        resultatRecherche = new ArrayList<>();
     }
     
     public String detailProduit(){
         String param = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idPro", param);
         setId(Integer.parseInt(param));
         produit = catalogue.findProduit(id);
-        return "produit.trouve";
+        return "produit.trouver";
     }
     
     public String rechercheParCategorie(){

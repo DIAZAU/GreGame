@@ -72,7 +72,6 @@ public class CommandeBean implements CommandeBeanLocal, CommandeBeanRemote{
             c.setListCommande(lc);
             c.getListCommande().size();
         }
-        System.out.println(liste.get(0).getListCommande().size());
         return liste;
     }
 }

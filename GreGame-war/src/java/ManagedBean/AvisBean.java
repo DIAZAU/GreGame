@@ -9,8 +9,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionBean.stateless.avis.AvisBeanLocal;
+import sessionBean.stateless.catalogue.CatalogueBeanRemote;
+import sessionBean.stateless.client.ClientBeanRemote;
 
 /**
  *
@@ -20,6 +23,10 @@ public class AvisBean  implements Serializable{
     
     @EJB
     private AvisBeanLocal avisBean;
+    @EJB
+    private ClientBeanRemote clientBean;
+    @EJB
+    private CatalogueBeanRemote catalogueBean;
     private Avis avis;
     private List<Avis> listAvis = new ArrayList<Avis>();
     private int idClient;
@@ -33,8 +40,25 @@ public class AvisBean  implements Serializable{
     }
     
     public String creerAvis(){
-        avisBean.createAvis(avis);
-        return "avis.cree";
+        FacesContext fc = FacesContext.getCurrentInstance();
+        try {
+            String param1 = (String)fc.getExternalContext().getSessionMap().get("idPro");
+            String param2 = (String)fc.getExternalContext().getSessionMap().get("idClient");
+            setIdClient(Integer.parseInt(param2));
+            setIdProduit(Integer.parseInt(param1));
+            avis.setClient(clientBean.findClient(idClient));
+            avis.setProduit(catalogueBean.findProduit(idProduit));
+            avis.setNoteAvis(1);
+            avisBean.createAvis(avis);
+            return "avis.cree";
+        } catch (NumberFormatException e) {
+            String msg = "Veuillez vous connecté pour pouvoir donner un avis";
+            FacesMessage facesMsg = new FacesMessage();
+            facesMsg.setDetail(msg);
+            facesMsg.setSeverity(FacesMessage.SEVERITY_INFO);
+            fc.addMessage(null, facesMsg);
+            return "";
+        }
     }
 
     /**
@@ -57,10 +81,9 @@ public class AvisBean  implements Serializable{
      * @return the listAvis
      */
     public List<Avis> getListAvis() {
-        String param1 = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
-        String param2 = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idClient");
-        System.out.println(param1+param2);
-        setListAvis(avisBean.searchAllAvis(1));
+        FacesContext fc = FacesContext.getCurrentInstance();
+        String param1 = (String)fc.getExternalContext().getSessionMap().get("idPro");
+        setListAvis(avisBean.searchAllAvis(Integer.parseInt(param1)));
         return listAvis;
     }
 
@@ -111,5 +134,33 @@ public class AvisBean  implements Serializable{
      */
     public void setAvis(Avis avis) {
         this.avis = avis;
+    }
+
+    /**
+     * @return the clientBean
+     */
+    public ClientBeanRemote getClientBean() {
+        return clientBean;
+    }
+
+    /**
+     * @param clientBean the clientBean to set
+     */
+    public void setClientBean(ClientBeanRemote clientBean) {
+        this.clientBean = clientBean;
+    }
+
+    /**
+     * @return the catalogueBean
+     */
+    public CatalogueBeanRemote getCatalogueBean() {
+        return catalogueBean;
+    }
+
+    /**
+     * @param catalogueBean the catalogueBean to set
+     */
+    public void setCatalogueBean(CatalogueBeanRemote catalogueBean) {
+        this.catalogueBean = catalogueBean;
     }
 }

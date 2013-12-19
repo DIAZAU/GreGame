@@ -15,6 +15,7 @@
       <var>msg</var>
     </resource-bundle>
   </application>
+  
     <managed-bean>
         <managed-bean-name>compteClientBean</managed-bean-name>
         <managed-bean-class>ManagedBean.CompteClientBean</managed-bean-class>
@@ -90,7 +91,7 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
-            <from-outcome>produit.trouve</from-outcome>
+            <from-outcome>produit.trouver</from-outcome>
             <to-view-id>/detailProduit.xhtml</to-view-id>
             <redirect></redirect>
         </navigation-case> 
@@ -99,8 +100,8 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
-            <from-outcome>panier.trouver</from-outcome>
-            <to-view-id>/afficherPanier.xhtml</to-view-id>
+            <from-outcome>avis.cree</from-outcome>
+            <to-view-id>/detailProduit.xhtml</to-view-id>
             <redirect></redirect>
         </navigation-case> 
     </navigation-rule>

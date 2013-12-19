@@ -74,16 +74,19 @@ public class CompteClientBean implements Serializable{
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idClient", String.valueOf(client.getIdClient()));
         } catch (ValidationException e) {
             String msg = e.getMessage();
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            FacesMessage facesMsg = new FacesMessage();
+            facesMsg.setDetail(msg);
+            facesMsg.setSeverity(FacesMessage.SEVERITY_INFO);
             FacesContext fc = FacesContext.getCurrentInstance();
-            fc.addMessage(null, facesMsg);
+            fc.addMessage("errorAuth", facesMsg);
             return "";
-            
         } catch (Exception e){
-            String msg = "Nous avons rencontrés des problémes lors de l'authentification";
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            String msg = "Identifiants invalides";
+            FacesMessage facesMsg = new FacesMessage();
+            facesMsg.setDetail(msg);
+            facesMsg.setSeverity(FacesMessage.SEVERITY_INFO);
             FacesContext fc = FacesContext.getCurrentInstance();
-            fc.addMessage(null, facesMsg);
+            fc.addMessage("errorAuth", facesMsg);
             return "";
         }
         return "connecte";
@@ -107,16 +110,18 @@ public class CompteClientBean implements Serializable{
             return "success";
         } catch (ValidationException e) {
             String msg = e.getMessage();
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            FacesMessage facesMsg = new FacesMessage();
+            facesMsg.setDetail(msg);
+            facesMsg.setSeverity(FacesMessage.SEVERITY_INFO);
             FacesContext fc = FacesContext.getCurrentInstance();
-            fc.addMessage(null, facesMsg);
+            fc.addMessage("errorInscription", facesMsg);
             return "";
             
         } catch (Exception e){
             String msg = "Nous avons rencontrés des problémes lors de l'ajout";
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
             FacesContext fc = FacesContext.getCurrentInstance();
-            fc.addMessage(null, facesMsg);
+            fc.addMessage("errorInscription", facesMsg);
             return "";
         }
     }
@@ -132,16 +137,20 @@ public class CompteClientBean implements Serializable{
             return "continuCommande";
         } catch (ValidationException e) {
             String msg = e.getMessage();
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            FacesMessage facesMsg = new FacesMessage();
+            facesMsg.setDetail(msg);
+            facesMsg.setSeverity(FacesMessage.SEVERITY_INFO);
             FacesContext fc = FacesContext.getCurrentInstance();
-            fc.addMessage(null, facesMsg);
+            fc.addMessage("errorInscription", facesMsg);
             return "";
             
         } catch (Exception e){
             String msg = "Nous avons rencontrés des problémes lors de l'ajout";
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            FacesMessage facesMsg = new FacesMessage();
+            facesMsg.setDetail(msg);
+            facesMsg.setSeverity(FacesMessage.SEVERITY_INFO);
             FacesContext fc = FacesContext.getCurrentInstance();
-            fc.addMessage(null, facesMsg);
+            fc.addMessage("errorInscription", facesMsg);
             return "";
         }
      }
@@ -156,6 +165,7 @@ public class CompteClientBean implements Serializable{
     
     public String deconnection(){
         setLogged(false);
+        ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
         return "acceuil";
     }
     

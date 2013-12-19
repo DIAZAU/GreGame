@@ -17,10 +17,10 @@ var $ = jQuery.noConflict();
         });	
 });
 $(document).ready(function(){
-	$('#pauseButton').click(function() { 
+	$('#slider').click(function() { 
 	    $('#slider').cycle('pause'); 
 	});
-	$('#resumeButton').click(function() { 
+	$('#slider').dblclick(function() { 
 	    $('#slider').cycle('resume'); 
 	});
 });

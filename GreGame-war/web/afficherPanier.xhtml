@@ -13,14 +13,15 @@
              <ui:define name="frame">
              <ui:include src="header.xhtml"/>
              <h:panelGroup layout="block" id="authentification">
+                 <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
                  <c:choose>
                     <c:when test="#{panierBean.panier.isEmpty() == false}">
                         <h:form>
-                            <h:commandButton action="#{panierBean.commandeEtape1()}" value="Passer la commande" class="retour" style="margin-left: 83%"></h:commandButton>     
+                            <p:commandButton action="#{panierBean.commandeEtape1()}" value="Passer la commande" style="margin-left: 83%"/>
                         </h:form>
                         <br/>
                         <h:form>
-                            <p:dataTable var="panier" value="#{panierBean.panier.getpanierProduits()}" editable="true">
+                            <p:dataTable var="panier" value="#{panierBean.panier.getpanierProduits()}" editable="true"  id="formPanier">
 
                                 <f:facet name="header">  
                                     Mon panier
@@ -34,8 +35,16 @@
                                     <h:outputText value="#{panier.produit.prixUnitaire} €" />
                                 </p:column>
 
-                                <p:column headerText="Quantité">
-                                    <h:outputText value="#{panier.quantite} " />
+                                <p:column headerText="Quantité">                                 
+                                    <h:selectOneMenu value="#{panierBean.quantite}" >
+                                          <f:selectItem itemLabel="#{panier.quantite}" itemValue="" />
+                                          <f:selectItems value="#{panierBean.listeQuantite()}" var="item" 
+                                                         itemLabel="#{item}" itemValue="#{item}" />
+                                          <p:ajax listener="#{panierBean.majProduit()}"
+                                                  event="change" update="formPanier">
+                                              <f:param name="idProduitToChange" value="#{panier.produit.idProduit}"/>
+                                          </p:ajax>
+                                    </h:selectOneMenu>
                                 </p:column>
 
                                 <p:column headerText="Prix Total">
@@ -64,12 +73,29 @@
                  </c:otherwise>
                  </c:choose>
                  
-                 <h:outputLink value="JavaScript:history.go(-1);" class="retour" >
-                     <h:outputText value="RETOUR"/>
-                 </h:outputLink>
-                 
-             </h:panelGroup>
-                
+                 <h:form>
+                     <br/> <br/>
+                     <p:commandButton value="RETOUR"  onclick="JavaScript:history.go(-1);" />
+                 </h:form>
+                 <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
+                <h1>Les jeux qui nous excitent !</h1>
+                   <marquee  behavior="scroll" direction="left">
+                       <img src="${request.contextPath}/resources/images/logos-par/1.png"/> 
+                       <img src="${request.contextPath}/resources/images/logos-par/2.png"/> 
+                       <img src="${request.contextPath}/resources/images/logos-par/3.png"/> 
+                       <img src="${request.contextPath}/resources/images/logos-par/4.png"/> 
+                       <img src="${request.contextPath}/resources/images/logos-par/5.png"/>
+                       <img src="${request.contextPath}/resources/images/logos-par/6.png"/> 
+                       <img src="${request.contextPath}/resources/images/logos-par/7.png"/> 
+                       <img src="${request.contextPath}/resources/images/logos-par/8.png"/> 
+                       <img src="${request.contextPath}/resources/images/logos-par/9.png"/> 
+                       <img src="${request.contextPath}/resources/images/logos-par/10.png"/>
+                       <img src="${request.contextPath}/resources/images/logos-par/11.png"/> 
+                       <img src="${request.contextPath}/resources/images/logos-par/12.png"/> 
+                       <img src="${request.contextPath}/resources/images/logos-par/13.png"/> 
+                       <img src="${request.contextPath}/resources/images/logos-par/14.png"/> 
+                   </marquee>    
+             </h:panelGroup>  
              <ui:include src="footer.xhtml"/>
         </ui:define>
         </ui:composition>

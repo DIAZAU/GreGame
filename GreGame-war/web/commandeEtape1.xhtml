@@ -13,6 +13,7 @@
              <ui:define name="frame">
                 <ui:include src="header.xhtml"/>
                 <h:panelGroup layout="block" id="authentification">
+                <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
                 <c:choose>
                     <c:when test="#{compteClientBean.logged == false}">
                         <h:panelGroup layout="block" id="authentification1">
@@ -110,7 +111,8 @@
                     </c:when>
                     <c:otherwise>
                         <h:form>
-                            <p:dataTable var="modeLivraison" value="#{panierBean.listeModeLivraison()}" editable="true">
+                            <p:dataTable var="modeLivraison" value="#{panierBean.listeModeLivraison()}" editable="true"
+                                         selection="#{modeLivraison}" paginator="true">
 
                                 <p:column id="modelHeader" headerText="Mode de livraison">
                                     <h:outputText value="#{modeLivraison.modeLivraison}" style="width: 30%" />
@@ -125,7 +127,7 @@
                                 </p:column>
 
                                 <p:column headerText="Choix">
-                                    <p:selectBooleanCheckbox value="" />
+                                    
                                 </p:column>
 
                             </p:dataTable>
@@ -164,12 +166,28 @@
                         </h:form> 
                         <br/>
                         <h:form>
-                            <h:commandButton action="#{compteClientBean.commandeEtape2()}" value="Accéder au paiement" class="retour" style="margin-left: 83%"></h:commandButton>     
+                            <p:commandButton action="#{compteClientBean.commandeEtape2()}" value="Accéder au paiement" style="margin-left: 83%"/>
                         </h:form>
                     </c:otherwise>
                 </c:choose>
+                <h:panelGroup layout="block" class="separator-full"></h:panelGroup >
                 <h1>Les jeux qui nous excitent !</h1>
-                <marquee  behavior="scroll" direction="left"><img src="${request.contextPath}/resources/images/logos-par/1.png"/> <img src="${request.contextPath}/resources/images/logos-par/2.png"/> <img src="${request.contextPath}/resources/images/logos-par/3.png"/> <img src="${request.contextPath}/resources/images/logos-par/4.png"/> <img src="${request.contextPath}/resources/images/logos-par/5.png"/></marquee>
+                <marquee  behavior="scroll" direction="left">
+                    <img src="${request.contextPath}/resources/images/logos-par/1.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/2.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/3.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/4.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/5.png"/>
+                    <img src="${request.contextPath}/resources/images/logos-par/6.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/7.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/8.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/9.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/10.png"/>
+                    <img src="${request.contextPath}/resources/images/logos-par/11.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/12.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/13.png"/> 
+                    <img src="${request.contextPath}/resources/images/logos-par/14.png"/> 
+                </marquee>
                 </h:panelGroup>
                 
                 <ui:include src="footer.xhtml"/>

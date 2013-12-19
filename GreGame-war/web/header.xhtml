@@ -6,12 +6,15 @@
               xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:panelGroup layout="block" id="top">
     <h:panelGroup layout="block" id="top-left">
-        <h:panelGroup layout="block" id="logo"><a href="#">
-            <img src="${request.contextPath}/resources/images/logo.png"/></a>
-            <h:link outcome="connexion" >
-                 <h:graphicImage  value="/resources/images/compte.jpg" />
+        <h:panelGroup layout="block" id="logo">
+            <h:link outcome="index">
+                <img src="${request.contextPath}/resources/images/logo.png"/>
             </h:link>
         </h:panelGroup>
+        
+        <h:link outcome="connexion" >
+             <h:graphicImage  value="/resources/images/compte.jpg" />
+        </h:link>
     </h:panelGroup >
     <h:panelGroup layout="block" id="top-right">
         <h:panelGroup layout="block" id="top-navigation">
@@ -23,13 +26,6 @@
                         </h:commandLink>
                       </h:form>
                     <ul>
-                        <li>
-                            <h:form>
-                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="PlayStation 2">
-                                    <f:param name="categorie" value="PlayStation2" />
-                                </h:commandLink>
-                            </h:form>
-                        </li>
                         <li>
                             <h:form>
                                 <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="PlayStation 3">
@@ -62,24 +58,14 @@
                                 </h:commandLink>
                             </h:form>
                         </li>
-                        <li>
-                            <h:form>
-                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="Linux">
-                                    <f:param name="categorie" value="Linux" />
-                                </h:commandLink>
-                            </h:form>
-                        </li>
                     </ul>
                  </li>
-                 <li><h:link value="Xbox"  outcome="template" />
+                 <li><h:form>
+                        <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="Xbox">
+                            <f:param name="categorie" value="Xbox" />
+                        </h:commandLink>
+                      </h:form>
                      <ul>
-                        <li>
-                            <h:form>
-                                <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="Xbox">
-                                    <f:param name="categorie" value="Xbox" />
-                                </h:commandLink>
-                            </h:form>
-                        </li>
                         <li>
                             <h:form>
                                 <h:commandLink action="#{catalogueBean.rechercheParCategorie()}" value="Xbox 360">
@@ -119,11 +105,14 @@
                        <p:commandButton value="OK" action="#{catalogueBean.recherche()}"/>
                   </h:form>
                  </h:panelGroup >
+                 <h:panelGroup layout="block" class="shopping_cart">
+                     <h:link  class="cart_title"  outcome="afficherPanier" value="Mon panier">
+                        <h:outputText  class="cart_details" value="#{panierBean.nombreArticle()} item(s)" 
+                                       style="color: #ffffff"> </h:outputText>
+                        <h:graphicImage value="/resources/images/shoppingcart.png" class="cart_icon" style="width:35px; height:35px; border:0"/>               
+                    </h:link>
+                 </h:panelGroup>
                  
-                 <h:link  class="panier"  outcome="afficherPanier">
-                     <br></br><br></br>
-                     <h:outputText value="#{panierBean.nombreArticle()} item(s)" style="color: #ffffff"> </h:outputText>
-                 </h:link> >
         </h:panelGroup >
     <!-- end #top-navigation -->
     </h:panelGroup ><!-- end #top-right -->

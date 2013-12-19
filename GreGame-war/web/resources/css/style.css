@@ -24,10 +24,6 @@ body {
 	margin-left: auto;
 	height: 100%;
 }
-* {
-    margin:0;
-    padding:0;
-  }
 
 *:focus {
 	outline:none;
@@ -243,6 +239,49 @@ code {
 	margin-right: 0px;
 	margin-bottom: 0px;
 	margin-left: 0px;
+}
+#logo a{display:block;margin-top:10px;overflow:hidden;}
+#logo a:hover{
+-webkit-animation: tada 1s;
+   -moz-animation: tada 1s;
+    -ms-animation: tada 1s;
+     -o-animation: tada 1s;
+        animation: tada 1s;
+}
+@-webkit-keyframes tada {
+	0% {-webkit-transform: scale(1);}	
+	10%, 20% {-webkit-transform: scale(0.8) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-webkit-transform: scale(1) rotate(3deg);}
+	40%, 60%, 80% {-webkit-transform: scale(1) rotate(-3deg);}
+	100% {-webkit-transform: scale(1) rotate(0);}
+}
+@-moz-keyframes tada {
+	0% {-moz-transform: scale(1);}	
+	10%, 20% {-moz-transform: scale(0.8) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-moz-transform: scale(1) rotate(3deg);}
+	40%, 60%, 80% {-moz-transform: scale(1) rotate(-3deg);}
+	100% {-moz-transform: scale(1) rotate(0);}
+}
+@-ms-keyframes tada {
+	0% {-ms-transform: scale(1);}	
+	10%, 20% {-ms-transform: scale(0.8) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-ms-transform: scale(1) rotate(3deg);}
+	40%, 60%, 80% {-ms-transform: scale(1) rotate(-3deg);}
+	100% {-ms-transform: scale(1) rotate(0);}
+}
+@-o-keyframes tada {
+	0% {-o-transform: scale(1);}	
+	10%, 20% {-o-transform: scale(0.8) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-o-transform: scale(1) rotate(3deg);}
+	40%, 60%, 80% {-o-transform: scale(1) rotate(-3deg);}
+	100% {-o-transform: scale(1) rotate(0);}
+}
+@keyframes tada {
+	0% {transform: scale(1);}	
+	10%, 20% {transform: scale(0.8) rotate(-3deg);}
+	30%, 50%, 70%, 90% {transform: scale(1) rotate(3deg);}
+	40%, 60%, 80% {transform: scale(1) rotate(-3deg);}
+	100% {transform: scale(1) rotate(0);}
 }
 #top-right{width:700px; float:left;}
 
@@ -587,11 +626,102 @@ ul.tweet_list li{ padding:10px 0px 10px 0px!important; background:url("../images
 .widget-contact .text-widget li{color:#373737; border:0px!important; padding:0px!important;}
 .widget-contact .text-widget li h2{ margin-bottom:7px;}
 
-
 #authentification{
-    border-top: #666666 solid;
-    margin-top: 50px;
+    margin-top: 30px;
     width:940px; background-color:#fff; padding:39px 39px 27px 39px;
+}
+
+.description{
+    margin-top: 0px;
+    background:url(../images/bg_ins.png) no-repeat; 
+    width: 500px;
+    height: 400px;
+}
+.texte{
+    width: 400px;
+    height: 300px;
+    padding-left: 40px;
+    padding-right: 20px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+.prix{
+    background:url(../images/prix.png) no-repeat;
+    width: 120px;
+    height: 120px;
+    position:relative;
+    margin-left: 100px;
+    overflow:hidden;
+    margin-bottom: 20px;
+    z-index:5;
+    -webkit-animation:bounce .35s ease infinite alternate;
+    -moz-animation:bounce .35s ease infinite alternate;
+    -o-animation:bounce .35s ease infinite alternate;
+    animation:bounce .35s ease infinite alternate;
+}
+
+@-webkit-keyframes bounce{
+from{top:30px;}
+to  {top:10px;}
+}
+@-webkit-keyframes bounce2{
+from{top:30px;}
+to  {top:10px;}
+}
+@-webkit-keyframes bounce3{
+from{top:30px;}
+to  {top:10px;}
+}
+@-moz-keyframes bounce{
+from{top:30px;}
+to  {top:10px;}
+}
+@-moz-keyframes bounce2{
+from{top:30px;}
+to  {top:10px;}
+}
+@-moz-keyframes bounce3{
+from{top:30px;}
+to  {top:10px;}
+}
+@-o-keyframes bounce{
+from{top:30px;}
+to  {top:10px;}
+}
+@-o-keyframes bounce2{
+from{top:30px;}
+to  {top:10px;}
+}
+@-o-keyframes bounce3{
+from{top:30px;}
+to  {top:10px;}
+}
+@keyframes bounce{
+from{top:30px;}
+to  {top:10px;}
+}
+@keyframes bounce2{
+from{top:30px;}
+to  {top:10px;}
+}
+@keyframes bounce3{
+from{top:30px;}
+to  {top:10px;}
+}
+.valeur{
+    padding-top: 63px;
+    padding-left: 43px;
+    font-size:20px;
+    color: white;
+}
+
+.paiement{
+    background: url(../images/fondCard.png) no-repeat;	
+    width: 500px;
+    height: 400px;
+}
+#tab2Text{
+   background-image: url(../images/prix.png);
 }
 #authentification1{
     border-top: #666666;
@@ -628,18 +758,7 @@ ul.tweet_list li{ padding:10px 0px 10px 0px!important; background:url("../images
     -webkit-border-radius: 5px;
 
 }
-.retour{
-    color: #ffffff;
-    display: inline-block;
-    padding: 5px 10px;
-    text-decoration: none;
-    font-weight: bold;
-    margin: 3px;
-    background: #949494;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
+
 
 /* FOOTER */
 #footer-copyright{
@@ -1121,15 +1240,37 @@ ddd {
 #outer-frame #frame #container .liens p {
 	font-weight: normal;
 }
-.panier
-{
-    background: url("../images/panier.png")no-repeat;
-    width: 150px;
-    height: 80px;
+.shopping_cart{
     float:right;
-    list-style: none;
-    position: absolute;
-    margin-left: 350px;
+    width:150px;
+    height:68px;
+    text-align:center;
+    background:url(../images/cart_bg.gif) no-repeat center;
+}
+.cart_title{
+    font-size:12px;
+    font-size:12px;
+    color:#847676;
+    font-weight:bold;
+    padding:8px 0 0 0;
+}
+.cart_details{
+    width:90px;
+    float:left;
+    padding:5px 0 0 5px;
+    text-align:left;
+}
+.cart_icon{
+    float:left;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+span.border_cart{
+    width:85px;
+    height:1px;
+    margin:3px 0 3px 0;
+    display:block;
+    border-top:1px #999999 dashed;
 }
 .search
 {

@@ -4,7 +4,6 @@
  */
 package ManagedBean;
 
-import entityBean.ModeLivraison;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +11,11 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.ValidationException;
+import org.primefaces.event.FlowEvent;
 import sessionBean.stateful.panier.*;
 import sessionBean.stateful.panier.PanierLocal;
 import sessionBean.stateless.catalogue.CatalogueBeanLocal;
+import util.ModeLivraison;
 
 /**
  *
@@ -34,6 +35,7 @@ public class PanierBean implements Serializable{
     private List<ModeLivraison> modeLovraison = new ArrayList<>(); 
     private List<ListeProduit> listeProduit = new ArrayList<>();
     private Double prixTotal;
+    private int numCard;
     /**
      * Creates a new instance of PanierBean
      */
@@ -41,8 +43,16 @@ public class PanierBean implements Serializable{
        panier = new Panier();
     }
     
+    public List<Integer> listeQuantite(){
+        List<Integer> list = new ArrayList<>();
+        for (int i = getQuantite(); i <= 10 ; i++){
+            list.add(i);
+        }
+        return list;
+    }
+    
     public List<ModeLivraison> listeModeLivraison(){
-        setModeLovraison(catalogue.findAllModeLivraison());
+        
         return getModeLovraison();
     }
     
@@ -79,8 +89,13 @@ public class PanierBean implements Serializable{
         panier.removeProduit(idProduit);
     }
     
-    public void majProduit(int idProduit){
-        getPanier().updateQuantiteProduit(idProduit, getQuantite());
+ 
+    public void majProduit(){
+        String param = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idProduitToChange");
+        if (param != null){
+            panier.updateQuantiteProduit(Integer.parseInt(param), getQuantite());
+        }
+        System.err.println(param);
     }
     
     public String validerPanier(){
@@ -95,13 +110,17 @@ public class PanierBean implements Serializable{
             getPanier().validatePanier(getIdClient());
         } catch (ValidationException e) {
             String msg = e.getMessage();
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            FacesMessage facesMsg = new FacesMessage();
+            facesMsg.setDetail(msg);
+            facesMsg.setSeverity(FacesMessage.SEVERITY_INFO);
             FacesContext fc = FacesContext.getCurrentInstance();
             fc.addMessage("ErreurValidation", facesMsg);
             return "panier.valider";
         } catch (Exception e){
-            String msg = e.getMessage();
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            String msg = "Commande non validé";
+            FacesMessage facesMsg = new FacesMessage();
+            facesMsg.setDetail(msg);
+            facesMsg.setSeverity(FacesMessage.SEVERITY_INFO);
             FacesContext fc = FacesContext.getCurrentInstance();
             fc.addMessage("ErreurValidation", facesMsg);
             return "panier.valider";
@@ -252,5 +271,22 @@ public class PanierBean implements Serializable{
      */
     public void setPrixTotal(Double prixTotal) {
         this.prixTotal = prixTotal;
+    }
+    public String onFlowProcess(FlowEvent event) {
+	return event.getNewStep();
+    }
+
+    /**
+     * @return the numCard
+     */
+    public int getNumCard() {
+        return numCard;
+    }
+
+    /**
+     * @param numCard the numCard to set
+     */
+    public void setNumCard(int numCard) {
+        this.numCard = numCard;
     }
 }

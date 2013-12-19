@@ -6,9 +6,7 @@ package sessionBean.stateless.catalogue;
 
 import entityBean.Adresse;
 import entityBean.Categorie;
-import entityBean.Commande;
 import entityBean.Fournisseur;
-import entityBean.ModeLivraison;
 import entityBean.Produit;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -192,34 +190,5 @@ public class CatalogueBean implements CatalogueBeanLocal, CatalogueBeanRemote {
         pro.setDescription(produit.getDescription());
         pro.setNomProduit(produit.getNomProduit());
         return pro;
-    }
-
-    @Override
-    public ModeLivraison createModeLivraison(ModeLivraison ml) {
-        if (ml != null){
-            em.persist(ml);
-            return ml;
-        }
-        return null;
-    }
-
-    @Override
-    public ModeLivraison updateModeLivraison(int idModeLivraison, ModeLivraison ml) {
-        ModeLivraison m = em.find(ModeLivraison.class, idModeLivraison);
-        m.setModeLivraison(ml.getModeLivraison());
-        m.setNbJour(ml.getNbJour());
-        m.setPrix(ml.getPrix());
-        return m;
-    }
-
-    @Override
-    public void deleteModeLivraison(int idModeLivraison) {
-        ModeLivraison ml = em.find(ModeLivraison.class, idModeLivraison);
-        em.remove(ml);
-    }
-
-    @Override
-    public List<ModeLivraison> findAllModeLivraison() {
-        return em.createNamedQuery("ModeLivraison.findAll").getResultList();
     }
 }
